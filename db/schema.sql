@@ -1,16 +1,12 @@
 BEGIN;
 
-DROP TABLE IF EXISTS currentmovies;
+DROP TABLE IF EXISTS canvas;
 
-CREATE TABLE currentmovies(
+CREATE TABLE canvas(
   id SERIAL PRIMARY KEY,
-  Title VARCHAR NOT NULL,
-  Poster TEXT,
-  Rating VARCHAR NOT NULL,
-  Runtime VARCHAR NOT NULL
-  );
-
-
-
+  title VARCHAR NOT NULL,
+  description TEXT,
+  drawing TEXT NOT NULL
+);
 
 COMMIT;

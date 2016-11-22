@@ -1,106 +1,48 @@
 import React, { Component } from 'react';
+// import DrawableCanvas from 'react-drawable-canvas';
+import DrawCanvas from './DrawCanvas';
 import './normalize.css';
 import './App.css';
-import Form from './Form.jsx';
-import Search from './Search.jsx';
-import Database from './Database.jsx';
 
-class App extends Component {
-
-  constructor() {
+export default class App extends Component {
+  constructor(){
     super();
+
     this.state = {
-      title: '',
-      poster: '',
-      nameForm: '',
-      playing: [],
+      color: 'blue',
     };
   }
 
-  getMovie() {
-    fetch(`/api`)
-    .then(r => r.json())
-    .then((data) => {
-      this.setState ({
-        playing:data
-      })
-    })
-  }
-
-  addMovie(data) {
-  fetch('/api/save', {
-    method: 'POST',
-  })
-  .then(r => r.json())
-    .then((data) => {
-      this.setState ({
-        playing:playing.push(data)
-      })
-    })
-  }
-
-  handleDelete(id) {
-   fetch(`/api/delete/${id}`, {
-     method: 'delete'
-   })
-   .then(() => {
-     let playing = this.state.playing.filter((mov) => {
-       return mov.id !=id;
-     });
+  handleColorChange(){
     this.setState({
-      playing: playing
+      color: 'black',
     })
-   })
-   .catch(err => console.log(err));
- }
-
-  getMovieByName(e) {
-    e.preventDefault();
-  fetch(`http://www.omdbapi.com/?t=${this.state.nameForm}`)
-  .then(r => r.json())
-  .then((data) => {
-    this.setState({
-        title: data.Title,
-        poster: data.Poster,
-      });
-  })
-  .catch()
-}
-
-  updateNameform(e) {
-    this.setState({
-      nameForm: e.target.value,
-    });
   }
 
   render() {
     return (
       <div>
-        <header>
-          <h1>Welcome to Movie Part 3!!!</h1>
-          <img src="http://www.pridelines.org/sites/pridelines/files/Movie%20night.jpg" />
-        </header>
-        <Form
-          name={this.state.nameForm}
-          updateNameform={this.updateNameform.bind(this)}
-          getMovieByName={this.getMovieByName.bind(this)}
+        <h1>Canvas Demo</h1>
+        <DrawCanvas
+          brushColor={this.state.color}
+          lineWidth={4}
+          canvasStyle={{
+            backgroundColor: '#FFFFFF',
+            cursor: 'pointer',
+          }}
+          clear={false}
         />
-        <Search
-          title={this.state.title}
-          poster={this.state.poster}
-          addMovie={this.addMovie.bind(this)}
-        />
-        <Database
-          getMovie={this.getMovie.bind(this)}
-          playing={this.state.playing}
-          handleDelete={this.handleDelete.bind(this)}
-        />
-        <footer>
-          <h3>CREATED BY MATT</h3>
-        </footer>
+        <button onClick={() => this.handleColorChange()}> Color Blue </button>
       </div>
     );
   }
 }
 
-export default App;
+
+{/* // brushColor={'#000000'}
+// lineWidth={4}
+// canvasStyle={{
+//   backgroundColor: '#FFFFFF',
+//   cursor: 'pointer'
+// }}
+// clear={false} */}
