@@ -4,26 +4,6 @@ const ReactDOM = require('react-dom');
 const PropTypes = React.PropTypes;
 
 const DrawableCanvas = React.createClass({
-  // propTypes: {
-  //   brushColor: PropTypes.string,
-  //   lineWidth: PropTypes.number,
-  //   canvasStyle: PropTypes.shape({
-  //     backgroundColor: PropTypes.string,
-  //     cursor: PropTypes.string
-  //   }),
-  //   clear: PropTypes.bool
-  // },
-  // getDefaultProps() {
-  //   return {
-  //     brushColor: '#000000',
-  //     lineWidth: 4,
-  //     canvasStyle: {
-  //       backgroundColor: '#FFFFFF',
-  //       cursor: 'pointer'
-  //     },
-  //     clear: false
-  //   };
-  // },
   getInitialState(){
     return {
       canvas: null,
@@ -135,49 +115,17 @@ const DrawableCanvas = React.createClass({
   },
   render() {
     return (
-      <canvas
-        style = {this.canvasStyle()}
+      <canvas style = {this.canvasStyle()}
         onMouseDown = {this.handleOnMouseDown}
         onTouchStart = {this.handleOnMouseDown}
         onMouseMove = {this.handleOnMouseMove}
         onTouchMove = {this.handleOnMouseMove}
         onMouseUp = {this.handleonMouseUp}
         onTouchEnd = {this.handleonMouseUp}
-      />
+      >
+      </canvas>
     );
   }
 });
 
 module.exports = DrawableCanvas;
-/*
-propTypes: {
-  brushColor: PropTypes.string,
-  lineWidth: PropTypes.number,
-  canvasStyle: PropTypes.shape({
-    backgroundColor: PropTypes.string,
-    cursor: PropTypes.string
-  }),
-  clear: PropTypes.bool
-},
-getDefaultProps() {
-  return {
-    brushColor: '#000000',
-    lineWidth: 4,
-    canvasStyle: {
-      backgroundColor: '#FFFFFF',
-      cursor: 'pointer'
-    },
-    clear: false
-  };
-},
-getInitialState(){
-  return {
-    canvas: null,
-    context: null,
-    drawing: false,
-    lastX: 0,
-    lastY: 0,
-    history: []
-  };
-},
-*/

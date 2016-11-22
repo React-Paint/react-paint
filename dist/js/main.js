@@ -7512,9 +7512,8 @@
   \********************************/
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';Object.defineProperty(exports,"__esModule",{value:true});var _createClass=function(){function defineProperties(target,props){for(var i=0;i<props.length;i++){var descriptor=props[i];descriptor.enumerable=descriptor.enumerable||false;descriptor.configurable=true;if("value"in descriptor)descriptor.writable=true;Object.defineProperty(target,descriptor.key,descriptor);}}return function(Constructor,protoProps,staticProps){if(protoProps)defineProperties(Constructor.prototype,protoProps);if(staticProps)defineProperties(Constructor,staticProps);return Constructor;};}();var _react=__webpack_require__(/*! react */ 1);var _react2=_interopRequireDefault(_react);var _DrawCanvas=__webpack_require__(/*! ./DrawCanvas */ 179);var _DrawCanvas2=_interopRequireDefault(_DrawCanvas);__webpack_require__(/*! ./App.css */ 180);function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj};}function _classCallCheck(instance,Constructor){if(!(instance instanceof Constructor)){throw new TypeError("Cannot call a class as a function");}}function _possibleConstructorReturn(self,call){if(!self){throw new ReferenceError("this hasn't been initialised - super() hasn't been called");}return call&&(typeof call==="object"||typeof call==="function")?call:self;}function _inherits(subClass,superClass){if(typeof superClass!=="function"&&superClass!==null){throw new TypeError("Super expression must either be null or a function, not "+typeof superClass);}subClass.prototype=Object.create(superClass&&superClass.prototype,{constructor:{value:subClass,enumerable:false,writable:true,configurable:true}});if(superClass)Object.setPrototypeOf?Object.setPrototypeOf(subClass,superClass):subClass.__proto__=superClass;}// import DrawableCanvas from 'react-drawable-canvas';
-	var App=function(_Component){_inherits(App,_Component);function App(){_classCallCheck(this,App);var _this=_possibleConstructorReturn(this,(App.__proto__||Object.getPrototypeOf(App)).call(this));_this.state={color:'black',url:"http://htmlcolorcodes.com/assets/images/html-color-codes-color-tutorials-hero-00e10b1f.jpg"};return _this;}_createClass(App,[{key:'handleColorChange',value:function handleColorChange(){this.setState({color:'blue'});}},{key:'render',value:function render(){var _this2=this;var banana=this.state.url;// Banana is attributed to trevor!!!!! the "this" in this.state.url was not recognized in background
-	return _react2.default.createElement('div',null,_react2.default.createElement('h1',null,'Canvas Demo'),_react2.default.createElement(_DrawCanvas2.default,{brushColor:this.state.color,lineWidth:4,canvasStyle:{background:'url('+banana+')',cursor:'pointer'},clear:false}),_react2.default.createElement('button',{onClick:function onClick(){return _this2.handleColorChange();}},' Color Blue '));}}]);return App;}(_react.Component);exports.default=App;{/* // brushColor={'#000000'}
+	'use strict';Object.defineProperty(exports,"__esModule",{value:true});var _createClass=function(){function defineProperties(target,props){for(var i=0;i<props.length;i++){var descriptor=props[i];descriptor.enumerable=descriptor.enumerable||false;descriptor.configurable=true;if("value"in descriptor)descriptor.writable=true;Object.defineProperty(target,descriptor.key,descriptor);}}return function(Constructor,protoProps,staticProps){if(protoProps)defineProperties(Constructor.prototype,protoProps);if(staticProps)defineProperties(Constructor,staticProps);return Constructor;};}();var _react=__webpack_require__(/*! react */ 1);var _react2=_interopRequireDefault(_react);var _Form=__webpack_require__(/*! ./Form.jsx */ 181);var _Form2=_interopRequireDefault(_Form);var _DrawCanvas=__webpack_require__(/*! ./DrawCanvas */ 179);var _DrawCanvas2=_interopRequireDefault(_DrawCanvas);__webpack_require__(/*! ./App.css */ 180);function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj};}function _classCallCheck(instance,Constructor){if(!(instance instanceof Constructor)){throw new TypeError("Cannot call a class as a function");}}function _possibleConstructorReturn(self,call){if(!self){throw new ReferenceError("this hasn't been initialised - super() hasn't been called");}return call&&(typeof call==="object"||typeof call==="function")?call:self;}function _inherits(subClass,superClass){if(typeof superClass!=="function"&&superClass!==null){throw new TypeError("Super expression must either be null or a function, not "+typeof superClass);}subClass.prototype=Object.create(superClass&&superClass.prototype,{constructor:{value:subClass,enumerable:false,writable:true,configurable:true}});if(superClass)Object.setPrototypeOf?Object.setPrototypeOf(subClass,superClass):subClass.__proto__=superClass;}var App=function(_Component){_inherits(App,_Component);function App(){_classCallCheck(this,App);var _this=_possibleConstructorReturn(this,(App.__proto__||Object.getPrototypeOf(App)).call(this));_this.state={color:'black',url:"http://htmlcolorcodes.com/assets/images/html-color-codes-color-tutorials-hero-00e10b1f.jpg"};return _this;}_createClass(App,[{key:'handleColorChange',value:function handleColorChange(){this.setState({color:'blue'});}},{key:'updateUrl',value:function updateUrl(e){this.setState({url:e.target.value});}},{key:'render',value:function render(){var _this2=this;var banana=this.state.url;// Banana is attributed to trevor!!!!! the "this" in this.state.url was not recognized in background
+	return _react2.default.createElement('div',null,_react2.default.createElement('h1',null,'Canvas Demo'),_react2.default.createElement(_Form2.default,{updateUrl:function updateUrl(e){return _this2.updateUrl(e);}}),_react2.default.createElement(_DrawCanvas2.default,{brushColor:this.state.color,lineWidth:4,canvasStyle:{background:'url('+banana+')',cursor:'pointer'},clear:false}),_react2.default.createElement('button',{onClick:function onClick(){return _this2.handleColorChange();}},' Color Blue '));}}]);return App;}(_react.Component);exports.default=App;{/* // brushColor={'#000000'}
 	// lineWidth={4}
 	// canvasStyle={{
 	//   backgroundColor: '#FFFFFF',
@@ -7529,58 +7528,7 @@
   \**************************************/
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';var React=__webpack_require__(/*! react */ 1);var ReactDOM=__webpack_require__(/*! react-dom */ 32);var PropTypes=React.PropTypes;var DrawableCanvas=React.createClass({displayName:'DrawableCanvas',// propTypes: {
-	//   brushColor: PropTypes.string,
-	//   lineWidth: PropTypes.number,
-	//   canvasStyle: PropTypes.shape({
-	//     backgroundColor: PropTypes.string,
-	//     cursor: PropTypes.string
-	//   }),
-	//   clear: PropTypes.bool
-	// },
-	// getDefaultProps() {
-	//   return {
-	//     brushColor: '#000000',
-	//     lineWidth: 4,
-	//     canvasStyle: {
-	//       backgroundColor: '#FFFFFF',
-	//       cursor: 'pointer'
-	//     },
-	//     clear: false
-	//   };
-	// },
-	getInitialState:function getInitialState(){return{canvas:null,context:null,drawing:false,lastX:0,lastY:0,history:[]};},componentDidMount:function componentDidMount(){var canvas=ReactDOM.findDOMNode(this);canvas.style.width='100%';canvas.style.height='100%';canvas.width=canvas.offsetWidth;canvas.height=canvas.offsetHeight;var ctx=canvas.getContext('2d');this.setState({canvas:canvas,context:ctx});},componentWillReceiveProps:function componentWillReceiveProps(nextProps){if(nextProps.clear){this.resetCanvas();}},handleOnMouseDown:function handleOnMouseDown(e){var rect=this.state.canvas.getBoundingClientRect();this.state.context.beginPath();if(this.isMobile()){this.setState({lastX:e.targetTouches[0].pageX-rect.left,lastY:e.targetTouches[0].pageY-rect.top});}else{this.setState({lastX:e.clientX-rect.left,lastY:e.clientY-rect.top});}this.setState({drawing:true});},handleOnMouseMove:function handleOnMouseMove(e){if(this.state.drawing){var rect=this.state.canvas.getBoundingClientRect();var lastX=this.state.lastX;var lastY=this.state.lastY;var currentX=void 0;var currentY=void 0;if(this.isMobile()){currentX=e.targetTouches[0].pageX-rect.left;currentY=e.targetTouches[0].pageY-rect.top;}else{currentX=e.clientX-rect.left;currentY=e.clientY-rect.top;}this.draw(lastX,lastY,currentX,currentY);this.setState({lastX:currentX,lastY:currentY});}},handleonMouseUp:function handleonMouseUp(){this.setState({drawing:false});},draw:function draw(lX,lY,cX,cY){this.state.context.strokeStyle=this.props.brushColor;this.state.context.lineWidth=this.props.lineWidth;this.state.context.moveTo(lX,lY);this.state.context.lineTo(cX,cY);this.state.context.stroke();},resetCanvas:function resetCanvas(){var width=this.state.context.canvas.width;var height=this.state.context.canvas.height;this.state.context.clearRect(0,0,width,height);},getDefaultStyle:function getDefaultStyle(){return{backgroundColor:'#FFFFFF',cursor:'pointer'};},canvasStyle:function canvasStyle(){var defaults=this.getDefaultStyle();var custom=this.props.canvasStyle;return Object.assign({},defaults,custom);},isMobile:function isMobile(){if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)){return true;}return false;},render:function render(){return React.createElement('canvas',{style:this.canvasStyle(),onMouseDown:this.handleOnMouseDown,onTouchStart:this.handleOnMouseDown,onMouseMove:this.handleOnMouseMove,onTouchMove:this.handleOnMouseMove,onMouseUp:this.handleonMouseUp,onTouchEnd:this.handleonMouseUp});}});module.exports=DrawableCanvas;/*
-	propTypes: {
-	  brushColor: PropTypes.string,
-	  lineWidth: PropTypes.number,
-	  canvasStyle: PropTypes.shape({
-	    backgroundColor: PropTypes.string,
-	    cursor: PropTypes.string
-	  }),
-	  clear: PropTypes.bool
-	},
-	getDefaultProps() {
-	  return {
-	    brushColor: '#000000',
-	    lineWidth: 4,
-	    canvasStyle: {
-	      backgroundColor: '#FFFFFF',
-	      cursor: 'pointer'
-	    },
-	    clear: false
-	  };
-	},
-	getInitialState(){
-	  return {
-	    canvas: null,
-	    context: null,
-	    drawing: false,
-	    lastX: 0,
-	    lastY: 0,
-	    history: []
-	  };
-	},
-	*/
+	'use strict';var React=__webpack_require__(/*! react */ 1);var ReactDOM=__webpack_require__(/*! react-dom */ 32);var PropTypes=React.PropTypes;var DrawableCanvas=React.createClass({displayName:'DrawableCanvas',getInitialState:function getInitialState(){return{canvas:null,context:null,drawing:false,lastX:0,lastY:0,history:[]};},componentDidMount:function componentDidMount(){var canvas=ReactDOM.findDOMNode(this);canvas.style.width='100%';canvas.style.height='100%';canvas.width=canvas.offsetWidth;canvas.height=canvas.offsetHeight;var ctx=canvas.getContext('2d');this.setState({canvas:canvas,context:ctx});},componentWillReceiveProps:function componentWillReceiveProps(nextProps){if(nextProps.clear){this.resetCanvas();}},handleOnMouseDown:function handleOnMouseDown(e){var rect=this.state.canvas.getBoundingClientRect();this.state.context.beginPath();if(this.isMobile()){this.setState({lastX:e.targetTouches[0].pageX-rect.left,lastY:e.targetTouches[0].pageY-rect.top});}else{this.setState({lastX:e.clientX-rect.left,lastY:e.clientY-rect.top});}this.setState({drawing:true});},handleOnMouseMove:function handleOnMouseMove(e){if(this.state.drawing){var rect=this.state.canvas.getBoundingClientRect();var lastX=this.state.lastX;var lastY=this.state.lastY;var currentX=void 0;var currentY=void 0;if(this.isMobile()){currentX=e.targetTouches[0].pageX-rect.left;currentY=e.targetTouches[0].pageY-rect.top;}else{currentX=e.clientX-rect.left;currentY=e.clientY-rect.top;}this.draw(lastX,lastY,currentX,currentY);this.setState({lastX:currentX,lastY:currentY});}},handleonMouseUp:function handleonMouseUp(){this.setState({drawing:false});},draw:function draw(lX,lY,cX,cY){this.state.context.strokeStyle=this.props.brushColor;this.state.context.lineWidth=this.props.lineWidth;this.state.context.moveTo(lX,lY);this.state.context.lineTo(cX,cY);this.state.context.stroke();},resetCanvas:function resetCanvas(){var width=this.state.context.canvas.width;var height=this.state.context.canvas.height;this.state.context.clearRect(0,0,width,height);},getDefaultStyle:function getDefaultStyle(){return{backgroundColor:'#FFFFFF',cursor:'pointer'};},canvasStyle:function canvasStyle(){var defaults=this.getDefaultStyle();var custom=this.props.canvasStyle;return Object.assign({},defaults,custom);},isMobile:function isMobile(){if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)){return true;}return false;},render:function render(){return React.createElement('canvas',{style:this.canvasStyle(),onMouseDown:this.handleOnMouseDown,onTouchStart:this.handleOnMouseDown,onMouseMove:this.handleOnMouseMove,onTouchMove:this.handleOnMouseMove,onMouseUp:this.handleonMouseUp,onTouchEnd:this.handleonMouseUp});}});module.exports=DrawableCanvas;
 
 /***/ },
 /* 180 */
@@ -7591,6 +7539,15 @@
 
 	// removed by extract-text-webpack-plugin
 	module.exports = {"cvs":"App__cvs___1Z-Rj"};
+
+/***/ },
+/* 181 */
+/*!*********************************!*\
+  !*** ./src/components/Form.jsx ***!
+  \*********************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";Object.defineProperty(exports,"__esModule",{value:true});var _createClass=function(){function defineProperties(target,props){for(var i=0;i<props.length;i++){var descriptor=props[i];descriptor.enumerable=descriptor.enumerable||false;descriptor.configurable=true;if("value"in descriptor)descriptor.writable=true;Object.defineProperty(target,descriptor.key,descriptor);}}return function(Constructor,protoProps,staticProps){if(protoProps)defineProperties(Constructor.prototype,protoProps);if(staticProps)defineProperties(Constructor,staticProps);return Constructor;};}();var _react=__webpack_require__(/*! react */ 1);var _react2=_interopRequireDefault(_react);function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj};}function _classCallCheck(instance,Constructor){if(!(instance instanceof Constructor)){throw new TypeError("Cannot call a class as a function");}}function _possibleConstructorReturn(self,call){if(!self){throw new ReferenceError("this hasn't been initialised - super() hasn't been called");}return call&&(typeof call==="object"||typeof call==="function")?call:self;}function _inherits(subClass,superClass){if(typeof superClass!=="function"&&superClass!==null){throw new TypeError("Super expression must either be null or a function, not "+typeof superClass);}subClass.prototype=Object.create(superClass&&superClass.prototype,{constructor:{value:subClass,enumerable:false,writable:true,configurable:true}});if(superClass)Object.setPrototypeOf?Object.setPrototypeOf(subClass,superClass):subClass.__proto__=superClass;}var Form=function(_Component){_inherits(Form,_Component);function Form(){_classCallCheck(this,Form);return _possibleConstructorReturn(this,(Form.__proto__||Object.getPrototypeOf(Form)).apply(this,arguments));}_createClass(Form,[{key:"render",value:function render(){return _react2.default.createElement("div",null,_react2.default.createElement("input",{className:"input",type:"text",name:"url",value:"",placeholder:"Enter Background URL",onChange:this.props.updateUrl}),_react2.default.createElement("button",null,"Search"));}}]);return Form;}(_react.Component);exports.default=Form;
 
 /***/ }
 /******/ ]);

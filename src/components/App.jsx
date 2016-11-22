@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-// import DrawableCanvas from 'react-drawable-canvas';
+import Form from './Form.jsx';
 import DrawCanvas from './DrawCanvas';
 import './App.css';
 
 export default class App extends Component {
-  constructor(){
+  constructor() {
     super();
 
     this.state = {
@@ -13,18 +13,27 @@ export default class App extends Component {
     };
   }
 
-  handleColorChange(){
+  handleColorChange() {
     this.setState({
       color: 'blue',
-    })
+    });
+  }
+
+  updateUrl(e) {
+    this.setState({
+      url: e.target.value,
+    });
   }
 
   render() {
     const banana = this.state.url;
-    // Banana is attributed to trevor!!!!! the "this" in this.state.url was not recognized in background
+// Banana is attributed to trevor!!!!! the "this" in this.state.url was not recognized in background
     return (
       <div>
         <h1>Canvas Demo</h1>
+        <Form
+          updateUrl={(e) => this.updateUrl(e)}
+        />
         <DrawCanvas
           brushColor={this.state.color}
           lineWidth={4}
