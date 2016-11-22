@@ -7,9 +7,4 @@ const sendJSONresp = (req,res) => res.json(res.rows);
 router.route('/')
   .get(sendJSONresp);
 
-
-
-
-
-
 module.exports = router;
