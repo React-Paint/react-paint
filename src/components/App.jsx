@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 // import DrawableCanvas from 'react-drawable-canvas';
 import DrawCanvas from './DrawCanvas';
-import './normalize.css';
 import './App.css';
 
 export default class App extends Component {
@@ -9,15 +8,25 @@ export default class App extends Component {
     super();
 
     this.state = {
-      color: 'blue',
+      color: 'black',
+      canvasContent: [],
+      imgData: {},
     };
   }
 
-  handleColorChange(){
+  updateCanvasIDs(imgData) {
     this.setState({
-      color: 'black',
+      imgData
+    });
+    console.log(imgData.data);
+  }
+
+  handleColorChange() {
+    this.setState({
+      color: 'blue',
     })
   }
+
 
   render() {
     return (
@@ -31,18 +40,10 @@ export default class App extends Component {
             cursor: 'pointer',
           }}
           clear={false}
+          updateCanvasIDs={(imgData) => this.updateCanvasIDs(imgData)}
+          // handleColorChange={() => this.handleColorChange()}
         />
-        <button onClick={() => this.handleColorChange()}> Color Blue </button>
       </div>
     );
   }
 }
-
-
-{/* // brushColor={'#000000'}
-// lineWidth={4}
-// canvasStyle={{
-//   backgroundColor: '#FFFFFF',
-//   cursor: 'pointer'
-// }}
-// clear={false} */}
