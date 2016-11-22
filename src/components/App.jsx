@@ -9,7 +9,8 @@ export default class App extends Component {
 
     this.state = {
       color: 'black',
-      url: "http://htmlcolorcodes.com/assets/images/html-color-codes-color-tutorials-hero-00e10b1f.jpg"
+      url: "http://htmlcolorcodes.com/assets/images/html-color-codes-color-tutorials-hero-00e10b1f.jpg",
+      holderUrl: "",
     };
   }
 
@@ -21,8 +22,14 @@ export default class App extends Component {
 
   updateUrl(e) {
     this.setState({
-      url: e.target.value,
+      holderUrl: e.target.value,
     });
+  }
+
+    searchUrl() {
+      this.setState({
+        url: this.state.holderUrl,
+      });
   }
 
   render() {
@@ -33,6 +40,8 @@ export default class App extends Component {
         <h1>Canvas Demo</h1>
         <Form
           updateUrl={(e) => this.updateUrl(e)}
+          searchUrl={this.searchUrl.bind(this)}
+          holderUrl={this.state.holderUrl}
         />
         <DrawCanvas
           brushColor={this.state.color}
