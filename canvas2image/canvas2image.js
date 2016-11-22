@@ -122,7 +122,6 @@ let Canvas2Image = function () {
 				str += String.fromCharCode(data[i]);
 			}
 		}
-
 		return btoa(str);
 	}
 	function getImageData (canvas) {
