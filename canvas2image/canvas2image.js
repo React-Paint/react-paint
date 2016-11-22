@@ -10,6 +10,7 @@ let initCanvas = function() {
 	let imgW = 300;
 	let imgH = 200;
 
+
 	let background = new Image();
 	background.crossOrigin = '';
 	background.src = "http://i.imgur.com/yf6d9SX.jpg";
@@ -17,6 +18,7 @@ let initCanvas = function() {
 	background.onload = function(){
 		 ctx.drawImage(background,0,0,600,400);
 	}
+
 	bind(canvas,ctx,convert,sel,imgs,imgW,imgH,bMouseIsDown);
 // http://impactjs.com/forums/help/canvas-tainted-by-cross-origin-data/page/1
 }();
@@ -24,6 +26,12 @@ let initCanvas = function() {
 function bind (canvas,ctx,convert,sel,imgs,imgW,imgH,bMouseIsDown) {
 		let iLastX = 0;
 		let iLastY = 0;
+
+		let sourceImg = ctx.getImageData(0, 0, imgW, imgH);
+		let pix = sourceImg.data;
+
+		console.log(pix);
+		
 		canvas.onmousedown = function(e) {
 			bMouseIsDown = true;
 			iLastX = e.clientX - canvas.offsetLeft + (window.pageXOffset||document.body.scrollLeft||document.documentElement.scrollLeft);
@@ -46,6 +54,10 @@ function bind (canvas,ctx,convert,sel,imgs,imgW,imgH,bMouseIsDown) {
 				ctx.lineWidth = 5;
 				iLastX = iX;
 				iLastY = iY;
+				let sourceImg = ctx.getImageData(0, 0, imgW, imgH);
+				let pix = sourceImg.data;
+
+				console.log(pix);
 			 // http://www.williammalone.com/articles/create-html5-canvas-javascript-drawing-app/#demo-colors
 			}
 		};

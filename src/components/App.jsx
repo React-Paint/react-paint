@@ -1,15 +1,30 @@
 import React, { Component } from 'react';
-// import CanvasHelper from '../helpers/CanvasHelper';
+import DrawCanvas from './DrawCanvas';
+import DrawableCanvas from 'react-drawable-canvas';
 import './normalize.css';
 import './App.css';
 
 export default class App extends Component {
+
+  // handlePrint() {
+  //   console.log(this.state);
+  // }
+
   render() {
     return (
       <div>
-        <h1>Set up React</h1>
-        <canvas className="cvs" />
-        <button className="publish">Publish</button>
+        <h1>Canvas Demo</h1>
+        <DrawCanvas
+          // brushColor={'#000000'}
+          // lineWidth={4}
+          // canvasStyle={{
+          //   backgroundColor: '#FFFFFF',
+          //   cursor: 'pointer'
+          // }}
+          // clear={false}
+        />
+        <DrawableCanvas />
+        <button> See State </button>
       </div>
     );
   }
