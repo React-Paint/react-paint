@@ -13,12 +13,25 @@ export default class App extends Component {
       holderUrl: "",
       canvasContent: [],
       imgData: {},
+      clear: false,
     };
   }
 
   handleColorChange() {
     this.setState({
       color: 'blue',
+    });
+  }
+
+  clickClear() {
+    this.setState({
+      clear: true,
+    });
+  }
+
+  unClear() {
+    this.setState({
+      clear: false,
     });
   }
 
@@ -58,10 +71,13 @@ export default class App extends Component {
             background: 'url('+banana+')',
             cursor: 'pointer',
           }}
-          clear={false}
+          clear={this.state.clear}
+          unclear={this.unClear.bind(this)}
           updateCanvasIDs={(imgData) => this.updateCanvasIDs(imgData)}
           // handleColorChange={() => this.handleColorChange()}
         />
+        <button onClick={() => this.handleColorChange()}>blue</button>
+        <button onClick={() => this.clickClear()}>clear</button>
       </div>
     );
   }
