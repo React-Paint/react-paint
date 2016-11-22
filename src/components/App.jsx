@@ -14,18 +14,19 @@ export default class App extends Component {
     return (
       <div>
         <h1>Canvas Demo</h1>
-        <DrawCanvas
-          // brushColor={'#000000'}
-          // lineWidth={4}
-          // canvasStyle={{
-          //   backgroundColor: '#FFFFFF',
-          //   cursor: 'pointer'
-          // }}
-          // clear={false}
-        />
         <DrawableCanvas />
+        <DrawCanvas />
         <button> See State </button>
       </div>
     );
   }
 }
+
+
+{/* // brushColor={'#000000'}
+// lineWidth={4}
+// canvasStyle={{
+//   backgroundColor: '#FFFFFF',
+//   cursor: 'pointer'
+// }}
+// clear={false} */}
