@@ -12,8 +12,4 @@ app.use(logger('dev'));
 app.use(express.static(path.join(__dirname, 'dist')));
 app.use(bodyParser.json());
 
-const apiMovieRouter = require('./routes/api/movies');
-
-app.use('/api', apiMovieRouter);
-
 app.listen(PORT, () => console.log('server here! listening on', PORT));
