@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 // import DrawableCanvas from 'react-drawable-canvas';
 import DrawCanvas from './DrawCanvas';
-import './normalize.css';
 import './App.css';
 
 export default class App extends Component {
@@ -9,17 +8,20 @@ export default class App extends Component {
     super();
 
     this.state = {
-      color: 'blue',
+      color: 'black',
+      url: "http://htmlcolorcodes.com/assets/images/html-color-codes-color-tutorials-hero-00e10b1f.jpg"
     };
   }
 
   handleColorChange(){
     this.setState({
-      color: 'black',
+      color: 'blue',
     })
   }
 
   render() {
+    const banana = this.state.url;
+    // Banana is attributed to trevor!!!!! the "this" in this.state.url was not recognized in background
     return (
       <div>
         <h1>Canvas Demo</h1>
@@ -27,7 +29,7 @@ export default class App extends Component {
           brushColor={this.state.color}
           lineWidth={4}
           canvasStyle={{
-            backgroundColor: '#FFFFFF',
+            background: 'url('+banana+')',
             cursor: 'pointer',
           }}
           clear={false}
