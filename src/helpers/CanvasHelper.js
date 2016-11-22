@@ -1,15 +1,16 @@
 'use strict';
 
+console.log('loaded canvas helper');
+
 let initCanvas = function() {
 	let bMouseIsDown = false;
-	let canvas = document.getElementById('cvs');
+	let canvas = document.querySelector('.cvs');
 	let ctx = canvas.getContext('2d');
-	let convert = document.getElementById('convert');
+	let publish = document.getElementById('publish');
 	let sel = 'png';
 	let imgs = document.getElementById('imgs');
 	let imgW = 300;
 	let imgH = 200;
-
 
 	let background = new Image();
 	background.crossOrigin = '';
@@ -18,20 +19,13 @@ let initCanvas = function() {
 	background.onload = function(){
 		 ctx.drawImage(background,0,0,600,400);
 	}
-
-	bind(canvas,ctx,convert,sel,imgs,imgW,imgH,bMouseIsDown);
+	bind(canvas,ctx,publish,sel,imgs,imgW,imgH,bMouseIsDown);
 // http://impactjs.com/forums/help/canvas-tainted-by-cross-origin-data/page/1
 }();
 
-function bind (canvas,ctx,convert,sel,imgs,imgW,imgH,bMouseIsDown) {
+function bind (canvas,ctx,publish,sel,imgs,imgW,imgH,bMouseIsDown) {
 		let iLastX = 0;
 		let iLastY = 0;
-
-		let sourceImg = ctx.getImageData(0, 0, imgW, imgH);
-		let pix = sourceImg.data;
-
-		console.log(pix);
-		
 		canvas.onmousedown = function(e) {
 			bMouseIsDown = true;
 			iLastX = e.clientX - canvas.offsetLeft + (window.pageXOffset||document.body.scrollLeft||document.documentElement.scrollLeft);
@@ -54,15 +48,11 @@ function bind (canvas,ctx,convert,sel,imgs,imgW,imgH,bMouseIsDown) {
 				ctx.lineWidth = 5;
 				iLastX = iX;
 				iLastY = iY;
-				let sourceImg = ctx.getImageData(0, 0, imgW, imgH);
-				let pix = sourceImg.data;
-
-				console.log(pix);
 			 // http://www.williammalone.com/articles/create-html5-canvas-javascript-drawing-app/#demo-colors
 			}
 		};
 
-		convert.onclick = function (e) {
+		publish.onclick = function (e) {
 			let type = sel.value,
 				w = imgW.value,
 				h = imgH.value;
