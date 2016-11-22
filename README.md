@@ -1,1 +1,1 @@
-#Simple React Application for MS-Paint enthusiasts
+#Simple React application for MS-Paint enthusiasts
