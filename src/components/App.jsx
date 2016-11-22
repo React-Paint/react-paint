@@ -11,6 +11,8 @@ export default class App extends Component {
       color: 'black',
       url: "http://htmlcolorcodes.com/assets/images/html-color-codes-color-tutorials-hero-00e10b1f.jpg",
       holderUrl: "",
+      canvasContent: [],
+      imgData: {},
     };
   }
 
@@ -30,6 +32,12 @@ export default class App extends Component {
       this.setState({
         url: this.state.holderUrl,
       });
+}
+  updateCanvasIDs(imgData) {
+    this.setState({
+      imgData
+    });
+    console.log(imgData.data);
   }
 
   render() {
@@ -51,18 +59,10 @@ export default class App extends Component {
             cursor: 'pointer',
           }}
           clear={false}
+          updateCanvasIDs={(imgData) => this.updateCanvasIDs(imgData)}
+          // handleColorChange={() => this.handleColorChange()}
         />
-        <button onClick={() => this.handleColorChange()}> Color Blue </button>
       </div>
     );
   }
 }
-
-
-{/* // brushColor={'#000000'}
-// lineWidth={4}
-// canvasStyle={{
-//   backgroundColor: '#FFFFFF',
-//   cursor: 'pointer'
-// }}
-// clear={false} */}
