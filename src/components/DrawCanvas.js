@@ -134,35 +134,3 @@ const DrawableCanvas = React.createClass({
 });
 
 module.exports = DrawableCanvas;
-/*
-propTypes: {
-  brushColor: PropTypes.string,
-  lineWidth: PropTypes.number,
-  canvasStyle: PropTypes.shape({
-    backgroundColor: PropTypes.string,
-    cursor: PropTypes.string
-  }),
-  clear: PropTypes.bool
-},
-getDefaultProps() {
-  return {
-    brushColor: '#000000',
-    lineWidth: 4,
-    canvasStyle: {
-      backgroundColor: '#FFFFFF',
-      cursor: 'pointer'
-    },
-    clear: false
-  };
-},
-getInitialState(){
-  return {
-    canvas: null,
-    context: null,
-    drawing: false,
-    lastX: 0,
-    lastY: 0,
-    history: []
-  };
-},
-*/
