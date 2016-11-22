@@ -1,0 +1,9 @@
+.doc {
+    width: 604px;
+    margin: 0 auto;
+}
+canvas {
+    cursor: default;
+    display: block;
+    border: 2px solid #888;
+}
