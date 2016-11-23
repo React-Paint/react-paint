@@ -14,6 +14,7 @@ export default class App extends Component {
       holderUrl: "",
       canvasContent: [],
       imgData: {},
+      back: [],
       clear: false,
       line: 4,
     };
@@ -55,10 +56,14 @@ export default class App extends Component {
     });
   }
   updateCanvasIDs(imgData) {
+    // const goback = this.state.back.splice();
+    // goback.push([imgData.data]);
     this.setState({
-      imgData
+      imgData,
+      // back: goback,
     });
-    console.log(imgData.data);
+    // console.log(imgData.data);
+    // console.log(this.state.back);
   }
 
   render() {
