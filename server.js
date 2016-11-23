@@ -5,9 +5,6 @@ const logger      = require('morgan');
 const path        = require('path');
 const bodyParser  = require('body-parser');
 
-// const paintRouter = require('./models/paint');
-// const userRouter  = require('./models/user');
-
 const app         = express();
 const PORT        = process.argv[2] || process.env.port || 3000;
 
@@ -16,9 +13,8 @@ app.use(logger('dev'));
 app.use(express.static(path.join(__dirname, 'dist')));
 app.use(bodyParser.json());
 
-
-app.use('/paint', require('./models/paint'));
-// app.use('/users', userRouter);
+app.use('/paint', require('./routes/paint'));
+app.use('/users', require('./routes/users'));
 
 app.listen(PORT, () => console.log('server here! listening on', PORT));
 
