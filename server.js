@@ -1,5 +1,4 @@
 'use strict';
-
 require('dotenv').config({ silent: true });
 const express     = require('express');
 const logger      = require('morgan');
@@ -14,9 +13,12 @@ app.use(logger('dev'));
 app.use(express.static(path.join(__dirname, 'dist')));
 app.use(bodyParser.json());
 
-// const paintRouter = require();
-// const userRouter = require();
-// app.use('/paintings', paintRouter);
-// app.use('/users', userRouter);
+app.use('/paint', require('./routes/paint'));
+app.use('/users', require('./routes/users'));
 
 app.listen(PORT, () => console.log('server here! listening on', PORT));
+
+app.use((err, req, res, next) => {
+  console.error(err, next);
+  res.status(500).send('Something broked!');
+});
