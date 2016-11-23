@@ -37,6 +37,7 @@ const DrawableCanvas = React.createClass({
   handleOnMouseDown(e){
     let rect = this.state.canvas.getBoundingClientRect();
     this.state.context.beginPath();
+    this.props.unclear();
     if(this.isMobile()){
       this.setState({
         lastX: e.targetTouches[0].pageX - rect.left,
