@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import SketchPicker from 'react-color';
 import Form from './Form.jsx';
 import DrawCanvas from './DrawCanvas';
 import './App.css';
@@ -8,7 +9,7 @@ export default class App extends Component {
     super();
 
     this.state = {
-      color: 'black',
+      color: 'rgba(0,0,0,1)',
       url: "http://htmlcolorcodes.com/assets/images/html-color-codes-color-tutorials-hero-00e10b1f.jpg",
       holderUrl: "",
       canvasContent: [],
@@ -17,9 +18,11 @@ export default class App extends Component {
     };
   }
 
-  handleColorChange() {
+  handleChangeComplete(draw) {
+    console.log(draw.rgb)
     this.setState({
-      color: 'blue',
+      color: draw.hex,
+      // color: rgba(draw.rgb.r,draw.rgb.g,draw.rgb.b,draw.rgb.a),
     });
   }
 
@@ -45,7 +48,7 @@ export default class App extends Component {
       this.setState({
         url: this.state.holderUrl,
       });
-}
+    }
   updateCanvasIDs(imgData) {
     this.setState({
       imgData
@@ -76,7 +79,10 @@ export default class App extends Component {
           updateCanvasIDs={(imgData) => this.updateCanvasIDs(imgData)}
           // handleColorChange={() => this.handleColorChange()}
         />
-        <button onClick={() => this.handleColorChange()}>blue</button>
+       <SketchPicker
+         color={this.state.color}
+         onChangeComplete={this.handleChangeComplete.bind(this)}
+       />
         <button onClick={() => this.clickClear()}>clear</button>
       </div>
     );
