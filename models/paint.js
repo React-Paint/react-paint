@@ -11,4 +11,14 @@ module.exports = {
       })
       .catch(error => next(error));
   },
+  addPainting(req,res,next) {
+    db.none(`
+      INSERT INTO
+        canvas
+      VALUES
+        ($/title/, $/despcription/, $/drawing/);
+    `)
+    .then(next())
+    .catch(err => next(err));
+  }
 };
