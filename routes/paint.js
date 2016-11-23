@@ -5,8 +5,7 @@ const sendJSONResp = (req, res) => res.json(res.rows);
 
 paint.route('/')
   .get(db.getAll, sendJSONResp)
-// paint.get('/', db.getAll, sendJSONResp)
-//   .post(addPainting, sendJSONresp);
+  .post(db.addPainting, sendJSONresp);
 //
 // paint.route('/:ID')
 //   .get(getPainting , sendJSONresp);
