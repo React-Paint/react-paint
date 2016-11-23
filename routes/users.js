@@ -1,10 +1,10 @@
 const user = require('express').Router();
-const { getAllUsers } = require('../models/user');
+const db = require('../models/user');
 
 const sendJSONresp = (req,res) => res.json(res.rows);
 
 user.route('/')
-  .get(getAll, sendJSONresp);
+  .get(db.getAllUsers, sendJSONresp);
   // .post(addPainting, sendJSONresp);
 
 // user.route('/:ID')
