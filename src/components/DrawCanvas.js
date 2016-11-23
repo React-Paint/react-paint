@@ -4,26 +4,6 @@ const ReactDOM = require('react-dom');
 const PropTypes = React.PropTypes;
 
 const DrawableCanvas = React.createClass({
-  // propTypes: {
-  //   brushColor: PropTypes.string,
-  //   lineWidth: PropTypes.number,
-  //   canvasStyle: PropTypes.shape({
-  //     backgroundColor: PropTypes.string,
-  //     cursor: PropTypes.string
-  //   }),
-  //   clear: PropTypes.bool
-  // },
-  // getDefaultProps() {
-  //   return {
-  //     brushColor: '#000000',
-  //     lineWidth: 4,
-  //     canvasStyle: {
-  //       backgroundColor: '#FFFFFF',
-  //       cursor: 'pointer'
-  //     },
-  //     clear: false
-  //   };
-  // },
   getInitialState(){
     return {
       canvas: null,
@@ -37,8 +17,8 @@ const DrawableCanvas = React.createClass({
   componentDidMount(){
     let canvas = ReactDOM.findDOMNode(this);
 
-    canvas.style.width = '100%';
-    canvas.style.height = '100%';
+    canvas.style.width = '600px';
+    canvas.style.height = '400px';
     canvas.width  = canvas.offsetWidth;
     canvas.height = canvas.offsetHeight;
 
@@ -57,6 +37,7 @@ const DrawableCanvas = React.createClass({
   handleOnMouseDown(e){
     let rect = this.state.canvas.getBoundingClientRect();
     this.state.context.beginPath();
+    this.props.unclear();
     if(this.isMobile()){
       this.setState({
         lastX: e.targetTouches[0].pageX - rect.left,
@@ -103,6 +84,10 @@ const DrawableCanvas = React.createClass({
     this.setState({
       drawing: false
     });
+
+    let imageData = this.state.context.getImageData(0, 0, this.state.canvas.width, this.state.canvas.height)
+
+    this.props.updateCanvasIDs(imageData);
   },
   draw(lX, lY, cX, cY){
     this.state.context.strokeStyle = this.props.brushColor;
@@ -135,7 +120,8 @@ const DrawableCanvas = React.createClass({
   },
   render() {
     return (
-      <canvas style = {this.canvasStyle()}
+      <canvas 
+        style = {this.canvasStyle()}
         onMouseDown = {this.handleOnMouseDown}
         onTouchStart = {this.handleOnMouseDown}
         onMouseMove = {this.handleOnMouseMove}
@@ -149,35 +135,3 @@ const DrawableCanvas = React.createClass({
 });
 
 module.exports = DrawableCanvas;
-/*
-propTypes: {
-  brushColor: PropTypes.string,
-  lineWidth: PropTypes.number,
-  canvasStyle: PropTypes.shape({
-    backgroundColor: PropTypes.string,
-    cursor: PropTypes.string
-  }),
-  clear: PropTypes.bool
-},
-getDefaultProps() {
-  return {
-    brushColor: '#000000',
-    lineWidth: 4,
-    canvasStyle: {
-      backgroundColor: '#FFFFFF',
-      cursor: 'pointer'
-    },
-    clear: false
-  };
-},
-getInitialState(){
-  return {
-    canvas: null,
-    context: null,
-    drawing: false,
-    lastX: 0,
-    lastY: 0,
-    history: []
-  };
-},
-*/

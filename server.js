@@ -6,6 +6,9 @@ const logger      = require('morgan');
 const path        = require('path');
 const bodyParser  = require('body-parser');
 
+const paintRouter = require('./models/paint');
+const userRouter  = require('./models/user');
+
 const app         = express();
 const PORT        = process.argv[2] || process.env.port || 3000;
 
@@ -14,9 +17,12 @@ app.use(logger('dev'));
 app.use(express.static(path.join(__dirname, 'dist')));
 app.use(bodyParser.json());
 
-const paintRouter = require();
-const userRouter = require();
-app.use('/paintings', paintRouter);
+app.use((err, req, res, next) => {
+  console.error(err, next);
+  res.status(500).send('Something broke!');
+});
+
+app.use('/paint', paintRouter);
 app.use('/users', userRouter);
 
 app.listen(PORT, () => console.log('server here! listening on', PORT));
