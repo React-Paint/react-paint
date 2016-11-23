@@ -14,4 +14,9 @@ app.use(logger('dev'));
 app.use(express.static(path.join(__dirname, 'dist')));
 app.use(bodyParser.json());
 
+const paintRouter = require();
+const userRouter = require();
+app.use('/paintings', paintRouter);
+app.use('/users', userRouter);
+
 app.listen(PORT, () => console.log('server here! listening on', PORT));
