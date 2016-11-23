@@ -1,7 +1,9 @@
 const db = require('./dbConnect');
 
 function getAll(req, res, next) {
-  db.any('SELECT * from canvas;')
+  db.any(`
+    SELECT * FROM canvas;
+  `)
     .then((canvas) => {
       res.rows = canvas;
       next();
@@ -11,5 +13,4 @@ function getAll(req, res, next) {
 
 module.exports = {
   getAll,
-  addPainting,
 };
