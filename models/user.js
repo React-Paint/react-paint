@@ -1,16 +1,14 @@
 const db = require('./dbConnect');
 
 module.exports = {
-
-  getAll(req, res, next) {
+  getAllUsers(req, res, next) {
     db.any(`
-      SELECT * FROM canvas;
-      `)
-      .then((canvas) => {
-        res.rows = canvas;
+      SELECT * from users;
+    `)
+      .then((user) => {
+        res.rows = user;
         next();
       })
       .catch(error => next(error));
   },
-
 };
