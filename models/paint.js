@@ -11,4 +11,17 @@ function getAll(req, res, next) {
 }
 
 
-module.exports = { getAll };
+// function addPainting(req, res, next) {
+
+//     db.any('SELECT from canavas;')
+//       .then((canvas) => {
+//         res.canvas = canvas;
+//         next();
+//       })
+//       .catch(error => next(error));
+// }
+
+module.exports = {
+  getAll
+  addPainting
+};
