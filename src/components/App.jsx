@@ -15,14 +15,13 @@ export default class App extends Component {
       canvasContent: [],
       imgData: {},
       clear: false,
+      line: 4,
     };
   }
 
   handleChangeComplete(draw) {
-    console.log(draw.rgb)
     this.setState({
-      color: draw.hex,
-      // color: rgba(draw.rgb.r,draw.rgb.g,draw.rgb.b,draw.rgb.a),
+      color: 'rgba(' + draw.rgb.r + ',' + draw.rgb.g + ',' + draw.rgb.b + ', ' + draw.rgb.a + ')',
     });
   }
 
@@ -44,11 +43,17 @@ export default class App extends Component {
     });
   }
 
-    searchUrl() {
-      this.setState({
-        url: this.state.holderUrl,
-      });
-    }
+  lineChange(e) {
+    this.setState({
+      line: e.target.value,
+    });
+  }
+
+  searchUrl() {
+    this.setState({
+      url: this.state.holderUrl,
+    });
+  }
   updateCanvasIDs(imgData) {
     this.setState({
       imgData
@@ -69,7 +74,7 @@ export default class App extends Component {
         />
         <DrawCanvas
           brushColor={this.state.color}
-          lineWidth={4}
+          lineWidth={this.state.line}
           canvasStyle={{
             background: 'url('+banana+')',
             cursor: 'pointer',
@@ -79,10 +84,11 @@ export default class App extends Component {
           updateCanvasIDs={(imgData) => this.updateCanvasIDs(imgData)}
           // handleColorChange={() => this.handleColorChange()}
         />
-       <SketchPicker
-         color={this.state.color}
-         onChangeComplete={this.handleChangeComplete.bind(this)}
-       />
+        <input type="range" min="2" max="15" step=".5" onChange={this.lineChange.bind(this)} />
+        <SketchPicker
+          color={this.state.color}
+          onChangeComplete={this.handleChangeComplete.bind(this)}
+        />
         <button onClick={() => this.clickClear()}>clear</button>
       </div>
     );
