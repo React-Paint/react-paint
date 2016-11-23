@@ -11,4 +11,5 @@ function getAll(req, res, next) {
 
 module.exports = {
   getAll,
+  addPainting,
 };

@@ -7,6 +7,7 @@ const path        = require('path');
 const bodyParser  = require('body-parser');
 
 const paintRouter = require('./models/paint');
+const userRouter  = require('./models/user');
 
 const app         = express();
 const PORT        = process.argv[2] || process.env.port || 3000;
@@ -22,5 +23,6 @@ app.use((err, req, res, next) => {
 });
 
 app.use('/paint', paintRouter);
+app.use('/users', userRouter);
 
 app.listen(PORT, () => console.log('server here! listening on', PORT));
