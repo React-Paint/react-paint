@@ -14,15 +14,16 @@ export default class App extends Component {
       holderUrl: "",
       canvasContent: [],
       imgData: {},
+      back: [],
       clear: false,
+      line: 4,
+      displayColorPicker: false,
     };
   }
 
   handleChangeComplete(draw) {
-    console.log(draw.rgb)
     this.setState({
-      color: draw.hex,
-      // color: rgba(draw.rgb.r,draw.rgb.g,draw.rgb.b,draw.rgb.a),
+      color: 'rgba(' + draw.rgb.r + ',' + draw.rgb.g + ',' + draw.rgb.b + ', ' + draw.rgb.a + ')',
     });
   }
 
@@ -44,21 +45,50 @@ export default class App extends Component {
     });
   }
 
-    searchUrl() {
-      this.setState({
-        url: this.state.holderUrl,
-      });
-    }
-  updateCanvasIDs(imgData) {
+  lineChange(e) {
     this.setState({
-      imgData
+      line: e.target.value,
     });
-    console.log(imgData.data);
+  }
+
+  searchUrl() {
+    this.setState({
+      url: this.state.holderUrl,
+    });
+  }
+  updateCanvasIDs(imgData) {
+    // const goback = this.state.back.splice();
+    // goback.push([imgData.data]);
+    this.setState({
+      imgData,
+      // back: goback,
+    });
+    // console.log(imgData.data);
+    // console.log(this.state.back);
+  }
+
+  handleClick() {
+    this.setState({ displayColorPicker: !this.state.displayColorPicker });
+  }
+
+  handleClose() {
+    this.setState({ displayColorPicker: false });
   }
 
   render() {
     const banana = this.state.url;
 // Banana is attributed to trevor!!!!! the "this" in this.state.url was not recognized in background
+    const popover = {
+      position: 'absolute',
+      zIndex: '2',
+    };
+    const cover = {
+      position: 'fixed',
+      top: '0px',
+      right: '0px',
+      bottom: '0px',
+      left: '0px',
+    };
     return (
       <div>
         <h1>Canvas Demo</h1>
@@ -69,7 +99,7 @@ export default class App extends Component {
         />
         <DrawCanvas
           brushColor={this.state.color}
-          lineWidth={4}
+          lineWidth={this.state.line}
           canvasStyle={{
             background: 'url('+banana+')',
             cursor: 'pointer',
@@ -79,12 +109,23 @@ export default class App extends Component {
           updateCanvasIDs={(imgData) => this.updateCanvasIDs(imgData)}
           // handleColorChange={() => this.handleColorChange()}
         />
-       <SketchPicker
-         color={this.state.color}
-         onChangeComplete={this.handleChangeComplete.bind(this)}
-       />
+        <input type="range" min="2" max="15" step=".5" onChange={this.lineChange.bind(this)} />
+        <div>
+          <button onClick={this.handleClick.bind(this)}>Pick Color</button>
+          { this.state.displayColorPicker ? <div style={popover}>
+            <div style={cover} onClick={this.handleClose.bind(this)} />
+            <SketchPicker
+              color={this.state.color}
+              onChangeComplete={this.handleChangeComplete.bind(this)}
+            />
+          </div> : null }
+        </div>
         <button onClick={() => this.clickClear()}>clear</button>
       </div>
     );
   }
 }
+     //   <SketchPicker
+     //     color={this.state.color}
+      //    onChangeComplete={this.handleChangeComplete.bind(this)}
+     //   />
