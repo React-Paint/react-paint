@@ -17,6 +17,7 @@ export default class App extends Component {
       back: [],
       clear: false,
       line: 4,
+      displayColorPicker: false,
     };
   }
 
@@ -66,9 +67,28 @@ export default class App extends Component {
     // console.log(this.state.back);
   }
 
+  handleClick() {
+    this.setState({ displayColorPicker: !this.state.displayColorPicker });
+  }
+
+  handleClose() {
+    this.setState({ displayColorPicker: false });
+  }
+
   render() {
     const banana = this.state.url;
 // Banana is attributed to trevor!!!!! the "this" in this.state.url was not recognized in background
+    const popover = {
+      position: 'absolute',
+      zIndex: '2',
+    };
+    const cover = {
+      position: 'fixed',
+      top: '0px',
+      right: '0px',
+      bottom: '0px',
+      left: '0px',
+    };
     return (
       <div>
         <h1>Canvas Demo</h1>
@@ -90,12 +110,22 @@ export default class App extends Component {
           // handleColorChange={() => this.handleColorChange()}
         />
         <input type="range" min="2" max="15" step=".5" onChange={this.lineChange.bind(this)} />
-        <SketchPicker
-          color={this.state.color}
-          onChangeComplete={this.handleChangeComplete.bind(this)}
-        />
+        <div>
+          <button onClick={this.handleClick.bind(this)}>Pick Color</button>
+          { this.state.displayColorPicker ? <div style={popover}>
+            <div style={cover} onClick={this.handleClose.bind(this)} />
+            <SketchPicker
+              color={this.state.color}
+              onChangeComplete={this.handleChangeComplete.bind(this)}
+            />
+          </div> : null }
+        </div>
         <button onClick={() => this.clickClear()}>clear</button>
       </div>
     );
   }
 }
+     //   <SketchPicker
+     //     color={this.state.color}
+      //    onChangeComplete={this.handleChangeComplete.bind(this)}
+     //   />
