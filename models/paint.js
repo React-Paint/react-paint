@@ -1,8 +1,9 @@
-const db = require('./dbConnect');
+const { sqlDB } = require('./dbConnect');
 
 module.exports = {
+  /*
   getAll(req, res, next) {
-    db.any(`
+    sqlDB.any(`
       SELECT * FROM canvas;
       `)
       .then((canvas) => {
@@ -12,13 +13,20 @@ module.exports = {
       .catch(error => next(error));
   },
   addPainting(req,res,next) {
-    db.none(`
+    console.log(req.body);
+    sqlDB.one(`
       INSERT INTO
         canvas
       VALUES
         ($/title/, $/despcription/, $/drawing/);
-    `)
-    .then(next())
-    .catch(err => next(err));
+    `, req.body)
+    .then((canva) => {
+      res.rows = canva;
+      next();
+    })
+    .catch(error => next(error));
   }
+  */
+
+
 };

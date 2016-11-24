@@ -41,11 +41,12 @@ export default class App extends Component {
     });
   }
 
-    searchUrl() {
-      this.setState({
-        url: this.state.holderUrl,
-      });
-}
+  searchUrl() {
+    this.setState({
+      url: this.state.holderUrl,
+    });
+  }
+  
   updateCanvasIDs(imgData) {
     this.setState({
       imgData

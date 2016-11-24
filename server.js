@@ -13,8 +13,8 @@ app.use(logger('dev'));
 app.use(express.static(path.join(__dirname, 'dist')));
 app.use(bodyParser.json());
 
-app.use('/paint', require('./routes/paint'));
-app.use('/users', require('./routes/users'));
+// app.use('/paint', require('./routes/paint'));
+// app.use('/users', require('./routes/users'));
 
 app.listen(PORT, () => console.log('server here! listening on', PORT));
 

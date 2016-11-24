@@ -7,7 +7,7 @@ CREATE TABLE canvas (
   id            SERIAL PRIMARY KEY,
   title         VARCHAR NOT NULL,
   description   TEXT,
-  drawing       INTEGER ARRAY
+  drawing_id    VARCHAR
 );
 
 CREATE TABLE users (
@@ -18,9 +18,9 @@ CREATE TABLE users (
 );
 
 INSERT INTO
-  canvas(title)
+  canvas(title,description,drawing_id)
 VALUES
-  ('Test Title');
+  ('Test Title', 'Test Description', 1);
 
 INSERT INTO
   users(username,password,email)

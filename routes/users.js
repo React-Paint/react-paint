@@ -5,7 +5,6 @@ const sendJSONresp = (req,res) => res.json(res.rows);
 
 user.route('/')
   .get(db.getAllUsers, sendJSONresp)
-  .post(db.addPainting, (req,res) => res.status(200))
 
 // user.route('/:ID')
 //   .get(getPainting , sendJSONresp);
