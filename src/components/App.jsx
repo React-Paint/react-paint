@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import SketchPicker from 'react-color';
 import Form from './Form.jsx';
+import Gallery from './Gallery';
 import DrawCanvas from './DrawCanvas';
+import AjaxFunctions from '../helpers/AjaxFunctions';
 import './App.css';
 
 export default class App extends Component {
@@ -12,67 +14,95 @@ export default class App extends Component {
       color: 'rgba(0,0,0,1)',
       url: "http://htmlcolorcodes.com/assets/images/html-color-codes-color-tutorials-hero-00e10b1f.jpg",
       holderUrl: "",
-      canvasContent: [],
+      title: "",
+      description: "",
       imgData: {},
       back: [],
       clear: false,
       line: 4,
       displayColorPicker: false,
+      drawings: [],
     };
+  }
+
+  componentDidMount() {
+    AjaxFunctions.getDrawings()
+      .then(drawings => {
+        this.setState({
+          drawings,
+        })
+      })
+      .catch(err => console.log(err))
   }
 
   handleChangeComplete(draw) {
     this.setState({
-      color: 'rgba(' + draw.rgb.r + ',' + draw.rgb.g + ',' + draw.rgb.b + ', ' + draw.rgb.a + ')',
+      // color: 'rgba(' + draw.rgb.r + ',' + draw.rgb.g + ',' + draw.rgb.b + ', ' + draw.rgb.a + ')',
+      color: `rgba(${draw.rgb.r}, ${draw.rgb.g}, ${draw.rgb.b}, ${draw.rgb.a})`,
     });
   }
-
   clickClear() {
     this.setState({
       clear: true,
     });
   }
-
   unClear() {
     this.setState({
       clear: false,
     });
   }
-
   updateUrl(e) {
     this.setState({
       holderUrl: e.target.value,
     });
   }
-
   lineChange(e) {
     this.setState({
       line: e.target.value,
     });
   }
-
   searchUrl() {
     this.setState({
       url: this.state.holderUrl,
     });
   }
-  updateCanvasIDs(imgData) {
-    // const goback = this.state.back.splice();
-    // goback.push([imgData.data]);
-    this.setState({
-      imgData,
-      // back: goback,
-    });
-    // console.log(imgData.data);
-    // console.log(this.state.back);
+
+  publishDrawing() {
+    const canvasData = {
+      title: this.state.title,
+      description: this.state.description,
+      drawing: this.state.imgData.canvas.toDataURL('png'),
+    }
+    AjaxFunctions.addDrawing(canvasData)
+      .then(drawing => {
+        this.setState({
+          drawings: drawing
+        })
+      })
+      .catch(err => console.log(err));
   }
 
+  updateCanvasIDs(canvas) {
+    this.setState({
+      imgData: canvas,
+    });
+  }
   handleClick() {
     this.setState({ displayColorPicker: !this.state.displayColorPicker });
   }
-
   handleClose() {
     this.setState({ displayColorPicker: false });
+  }
+
+  handleTitleChange(e) {
+    this.setState({
+      title: e.target.value
+    })
+  }
+  handleDescriptionChange(e) {
+    this.setState({
+      description: e.target.value
+    })
   }
 
   render() {
@@ -91,7 +121,7 @@ export default class App extends Component {
     };
     return (
       <div>
-        <h1>Canvas Demo</h1>
+        <h1>Paint Pals</h1>
         <Form
           updateUrl={(e) => this.updateUrl(e)}
           searchUrl={this.searchUrl.bind(this)}
@@ -121,6 +151,18 @@ export default class App extends Component {
           </div> : null }
         </div>
         <button onClick={() => this.clickClear()}>clear</button>
+
+        <div className="publish-div">
+          <input type="text" value={this.state.title} onChange={(e) => this.handleTitleChange(e)}/>
+          <textarea value={this.state.description} onChange={(e) => this.handleDescriptionChange(e)}>
+            Enter a description
+          </textarea>
+          <button onClick={() => this.publishDrawing()}>Publish</button>
+        </div>
+
+        <Gallery
+          drawings={this.state.drawings}
+        />
       </div>
     );
   }
