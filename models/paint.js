@@ -8,6 +8,7 @@ module.exports = {
       `)
       .then((canvas) => {
         res.rows = canvas;
+        console.log('num items: ', canvas.length);
         next();
       })
       .catch(error => next(error));

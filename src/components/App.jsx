@@ -21,14 +21,13 @@ export default class App extends Component {
       clear: false,
       line: 4,
       displayColorPicker: false,
-      drawings: {},
+      drawings: [],
     };
   }
 
   componentDidMount() {
     AjaxFunctions.getDrawings()
       .then(drawings => {
-        console.log(drawings);
         this.setState({
           drawings,
         })
@@ -42,31 +41,26 @@ export default class App extends Component {
       color: `rgba(${draw.rgb.r}, ${draw.rgb.g}, ${draw.rgb.b}, ${draw.rgb.a})`,
     });
   }
-
   clickClear() {
     this.setState({
       clear: true,
     });
   }
-
   unClear() {
     this.setState({
       clear: false,
     });
   }
-
   updateUrl(e) {
     this.setState({
       holderUrl: e.target.value,
     });
   }
-
   lineChange(e) {
     this.setState({
       line: e.target.value,
     });
   }
-
   searchUrl() {
     this.setState({
       url: this.state.holderUrl,
@@ -89,21 +83,13 @@ export default class App extends Component {
   }
 
   updateCanvasIDs(canvas) {
-    // const goback = this.state.back.splice();
-    // goback.push([imgData.data]);
-
     this.setState({
       imgData: canvas,
-      // back: goback,
     });
-
-    // console.log(this.state.back);
   }
-
   handleClick() {
     this.setState({ displayColorPicker: !this.state.displayColorPicker });
   }
-
   handleClose() {
     this.setState({ displayColorPicker: false });
   }
@@ -135,7 +121,7 @@ export default class App extends Component {
     };
     return (
       <div>
-        <h1>Canvas Demo</h1>
+        <h1>Paint Pals</h1>
         <Form
           updateUrl={(e) => this.updateUrl(e)}
           searchUrl={this.searchUrl.bind(this)}
