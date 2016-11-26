@@ -85,8 +85,12 @@ const DrawableCanvas = React.createClass({
       drawing: false
     });
 
-    let imageData = this.state.context.getImageData(0, 0, this.state.canvas.width, this.state.canvas.height)
+    // let imageData = this.state.context.getImageData(0, 0, this.state.canvas.width, this.state.canvas.height)
 
+    let imageData = {
+      canvas: this.state.canvas,
+    }
+    console.log(imageData);
     this.props.updateCanvasIDs(imageData);
   },
   draw(lX, lY, cX, cY){
@@ -120,7 +124,7 @@ const DrawableCanvas = React.createClass({
   },
   render() {
     return (
-      <canvas 
+      <canvas
         style = {this.canvasStyle()}
         onMouseDown = {this.handleOnMouseDown}
         onTouchStart = {this.handleOnMouseDown}

@@ -19,5 +19,4 @@ function mongoDB() {
 
 module.exports = {
   sqlDB,
-  mongoDB,
 };

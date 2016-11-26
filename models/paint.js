@@ -1,8 +1,8 @@
 const { sqlDB } = require('./dbConnect');
 
 module.exports = {
-  /*
-  getAll(req, res, next) {
+
+  getDrawings(req, res, next) {
     sqlDB.any(`
       SELECT * FROM canvas;
       `)
@@ -12,13 +12,14 @@ module.exports = {
       })
       .catch(error => next(error));
   },
-  addPainting(req,res,next) {
-    console.log(req.body);
+  addDrawing(req,res,next) {
+    console.log('req.body content:', req.body);
     sqlDB.one(`
       INSERT INTO
-        canvas
+        canvas(title,description,drawing)
       VALUES
-        ($/title/, $/despcription/, $/drawing/);
+        ($/title/, $/description/, $/drawing/)
+      RETURNING *;
     `, req.body)
     .then((canva) => {
       res.rows = canva;
@@ -26,7 +27,38 @@ module.exports = {
     })
     .catch(error => next(error));
   }
+  /*
+  getAllDrawings(req,res,next) {
+    mongoDB().then((db) => {
+      db.collection('canvas')
+      .find({})
+      .toArray((err, data) => {
+        if(err) return next(err);
+        res.rows = data;
+        db.close();
+        next();
+      });
+      return false;
+    });
+    return false;
+  },
+  addDrawing(req,res,next) {
+    console.log(req.body.drawing);
+    const canvObj = {
+      cavasData: Array.from(req.body.drawing),
+    }
+    mongoDB().then(db => {
+      db.collection('canvas')
+      .insert(canvObj, (err, drawing) => {
+        if (err) return next(err);
+        res.row = drawing;
+        console.log(drawing);
+        db.close()
+        next();
+      });
+      return false;
+    });
+    return false;
+  },
   */
-
-
 };

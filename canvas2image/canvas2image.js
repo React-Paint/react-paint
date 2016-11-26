@@ -31,7 +31,7 @@ function bind (canvas,ctx,convert,sel,imgs,imgW,imgH,bMouseIsDown) {
 		let pix = sourceImg.data;
 
 		console.log(pix);
-		
+
 		canvas.onmousedown = function(e) {
 			bMouseIsDown = true;
 			iLastX = e.clientX - canvas.offsetLeft + (window.pageXOffset||document.body.scrollLeft||document.documentElement.scrollLeft);
@@ -70,7 +70,7 @@ function bind (canvas,ctx,convert,sel,imgs,imgW,imgH,bMouseIsDown) {
 		}
 	}
 
-let Canvas2Image = function () {
+const Canvas2Image = function () {
 
 	// check if support sth.
 	let support = function () {
