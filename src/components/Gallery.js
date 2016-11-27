@@ -2,32 +2,31 @@ import React, { Component } from 'react';
 import GalleryItem from './GalleryItem';
 import './App.css';
 
-// // This way can use edit button
-// export default class Gallery extends Component {
-//   render() {
-//     console.log(this.props.drawings);
-//     const drawing = this.props.drawings.map((canv, ind) => {
-//       return (
-//         <GalleryItem
-//           key={ind}
-//           title={canv.title}
-//           desc={canv.description}
-//           canvas={canv.drawing}
-//           id={`canvas${canv.id}`}
-//           editCanvas={() => this.props.editCanvas(canv.id)}
-//         />
-//       )
-//     });
-//     return (
-//       <div className="gallery-div">
-//         <h1>Gallery</h1>
-//         {drawing}
-//       </div>
-//     );
-//   }
-// }
+// Now live refreshes and edit button works
+export default class Gallery extends Component {
+  render() {
+    console.log('rendering');
+      const drawing = Object.keys(this.props.drawings)
+        .map((canvID, ind) => (
+          <GalleryItem
+            key={ind}
+            title={this.props.drawings[canvID].title}
+            desc={this.props.drawings[canvID].description}
+            canvas={this.props.drawings[canvID].drawing}
+            id={`canvas${this.props.drawings[canvID].id}`}
+            editCanvas={() => this.props.editCanvas(this.props.drawings[canvID].id)}
+          />
+        ));
+    return (
+      <div className="gallery-div">
+        <h1>Gallery</h1>
+        {drawing}
+      </div>
+    );
+  }
+}
 
-
+/*
 // This way can live update
 const Gallery = props => {
 
@@ -54,3 +53,4 @@ const Gallery = props => {
 };
 
 export default Gallery;
+*/

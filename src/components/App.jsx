@@ -78,6 +78,7 @@ export default class App extends Component {
       .then(drawing => {
         const newState = {...this.state.drawings};
         console.log(newState);
+        console.log(Object.keys(newState));
         newState[drawing.id] = drawing;
         this.setState({
           drawings: newState
