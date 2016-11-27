@@ -2,27 +2,25 @@ import React, { Component } from 'react';
 import GalleryItem from './GalleryItem';
 import './App.css';
 
-const Gallery = props => {
-  const generateGalleryList = drawings =>
-    Object.keys(drawings)
-      .map((canvID, i) => (
+export default class Gallery extends Component {
+  render() {
+    const drawing = Object.keys(this.props.drawings)
+      .map((canvID, ind) => (
         <GalleryItem
-          key={i}
-          title={drawings[canvID].title}
-          desc={drawings[canvID].description}
-          canvas={drawings[canvID].drawing}
-          URL={drawings[canvID].url}
-          id={`canvas${canvID}`}
-          editCanvas={() => this.props.editCanvas(canvID)}
+          key={ind}
+          title={this.props.drawings[canvID].title}
+          desc={this.props.drawings[canvID].description}
+          canvas={this.props.drawings[canvID].drawing}
+          URL={this.props.drawings[canvID].url}
+          id={`canvas${this.props.drawings[canvID].id}`}
+          editCanvas={() => this.props.editCanvas(this.props.drawings[canvID].id)}
         />
     ));
-
-  return (
-    <div className="gallery-div">
-      <h1>Gallery</h1>
-      {generateGalleryList(props.drawings)}
-    </div>
-  );
-};
-
-export default Gallery;
+    return (
+      <div className="gallery-div">
+        <h1>Gallery</h1>
+        {drawing}
+      </div>
+    );
+  }
+}
