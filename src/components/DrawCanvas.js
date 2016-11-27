@@ -90,7 +90,7 @@ const DrawableCanvas = React.createClass({
     let imageData = {
       canvas: this.state.canvas,
     }
-    console.log(imageData);
+
     this.props.updateCanvasIDs(imageData);
   },
   draw(lX, lY, cX, cY){
