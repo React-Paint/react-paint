@@ -18,11 +18,11 @@ export default class App extends Component {
       title: "",
       description: "",
       imgData: {},
-      back: [],
       clear: false,
       line: 4,
       displayColorPicker: false,
       drawings: [],
+      editImg: "",
     };
   }
 
@@ -44,6 +44,7 @@ export default class App extends Component {
   clickClear() {
     this.setState({
       clear: true,
+      editImg: "",
     });
   }
   unClear() {
@@ -87,13 +88,17 @@ export default class App extends Component {
   }
 
   editCanvas(id) {
-    let imgSrc = AjaxFunctions.getImage(id);
+    const imgSrc = AjaxFunctions.getImage(id);
+    // const imgData = this.state.imgData;
+    // imgData.canvas = imgSrc.src.toString();
     AjaxFunctions.getDrawing(id)
       .then((canv) => {
         this.setState({
           title: canv.title,
           description: canv.description,
-          url: imgSrc.src.toString(),
+          url: canv.url,
+          editImg: imgSrc.src.toString(),
+          // imgData,
         });
       })
       .catch(err => console.log(err));
@@ -156,6 +161,7 @@ export default class App extends Component {
           updateCanvasIDs={(imgData) => this.updateCanvasIDs(imgData)}
           // handleColorChange={() => this.handleColorChange()}
         />
+        <img src={this.state.editImg} />
         <input type="range" min="2" max="15" step=".5" onChange={this.lineChange.bind(this)} />
         <div>
           <button onClick={this.handleClick.bind(this)}>Pick Color</button>
