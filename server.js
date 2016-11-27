@@ -11,8 +11,7 @@ const PORT        = process.argv[2] || process.env.port || 3000;
 app.use(logger('dev'));
 
 app.use(express.static(path.join(__dirname, 'dist')));
-// app.use(bodyParser.urlencoded({limit: '50mb'}));
-app.use(bodyParser.json({limit: '50mb'}));
+app.use(bodyParser.json());
 
 app.use('/paint', require('./routes/paint'));
 // app.use('/users', require('./routes/users'));
