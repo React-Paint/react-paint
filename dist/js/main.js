@@ -18238,30 +18238,33 @@
   \***********************************/
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';Object.defineProperty(exports,"__esModule",{value:true});var _createClass=function(){function defineProperties(target,props){for(var i=0;i<props.length;i++){var descriptor=props[i];descriptor.enumerable=descriptor.enumerable||false;descriptor.configurable=true;if("value"in descriptor)descriptor.writable=true;Object.defineProperty(target,descriptor.key,descriptor);}}return function(Constructor,protoProps,staticProps){if(protoProps)defineProperties(Constructor.prototype,protoProps);if(staticProps)defineProperties(Constructor,staticProps);return Constructor;};}();var _react=__webpack_require__(/*! react */ 1);var _react2=_interopRequireDefault(_react);var _GalleryItem=__webpack_require__(/*! ./GalleryItem */ 422);var _GalleryItem2=_interopRequireDefault(_GalleryItem);__webpack_require__(/*! ./App.css */ 419);function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj};}function _classCallCheck(instance,Constructor){if(!(instance instanceof Constructor)){throw new TypeError("Cannot call a class as a function");}}function _possibleConstructorReturn(self,call){if(!self){throw new ReferenceError("this hasn't been initialised - super() hasn't been called");}return call&&(typeof call==="object"||typeof call==="function")?call:self;}function _inherits(subClass,superClass){if(typeof superClass!=="function"&&superClass!==null){throw new TypeError("Super expression must either be null or a function, not "+typeof superClass);}subClass.prototype=Object.create(superClass&&superClass.prototype,{constructor:{value:subClass,enumerable:false,writable:true,configurable:true}});if(superClass)Object.setPrototypeOf?Object.setPrototypeOf(subClass,superClass):subClass.__proto__=superClass;}var Gallery=function(_Component){_inherits(Gallery,_Component);function Gallery(){_classCallCheck(this,Gallery);return _possibleConstructorReturn(this,(Gallery.__proto__||Object.getPrototypeOf(Gallery)).apply(this,arguments));}_createClass(Gallery,[{key:'generateGalleryList',value:function generateGalleryList(){var _this2=this;Object.keys(this.props.drawings).map(function(canv,ind){return _react2.default.createElement(_GalleryItem2.default,{key:ind,title:canv.title,desc:canv.description,canvas:canv.drawing,id:'canvas'+canv.id,editCanvas:function editCanvas(){return _this2.props.editCanvas(canv.id);}});});}},{key:'render',value:function render(){return _react2.default.createElement('div',{className:'gallery-div'},_react2.default.createElement('h1',null,'Gallery'),this.generateGalleryList());}}]);return Gallery;}(_react.Component);// const Gallery = props => {
-	//   const generateGalleryList = drawings =>
-	//     Object.keys(drawings)
-	//       .map((canvID, i) => (
+	'use strict';Object.defineProperty(exports,"__esModule",{value:true});var _react=__webpack_require__(/*! react */ 1);var _react2=_interopRequireDefault(_react);var _GalleryItem=__webpack_require__(/*! ./GalleryItem */ 422);var _GalleryItem2=_interopRequireDefault(_GalleryItem);__webpack_require__(/*! ./App.css */ 419);function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj};}// // This way can use edit button
+	// export default class Gallery extends Component {
+	//   render() {
+	//     console.log(this.props.drawings);
+	//     const drawing = this.props.drawings.map((canv, ind) => {
+	//       return (
 	//         <GalleryItem
-	//           key={i}
-	//           title={drawings[canvID].title}
-	//           desc={drawings[canvID].description}
-	//           canvas={drawings[canvID].drawing}
-	//           id={`canvas${canvID}`}
-	//           editCanvas={(canvID) => props.editCanvas(canvID.id)}
+	//           key={ind}
+	//           title={canv.title}
+	//           desc={canv.description}
+	//           canvas={canv.drawing}
+	//           id={`canvas${canv.id}`}
+	//           editCanvas={() => this.props.editCanvas(canv.id)}
 	//         />
-	//     ));
-	//
-	//   return (
-	//     <div className="gallery-div">
-	//       <h1>Gallery</h1>
-	//       {generateGalleryList(props.drawings)}
-	//     </div>
-	//   );
-	// };
-	//
-	// export default Gallery;
-	exports.default=Gallery;
+	//       )
+	//     });
+	//     return (
+	//       <div className="gallery-div">
+	//         <h1>Gallery</h1>
+	//         {drawing}
+	//       </div>
+	//     );
+	//   }
+	// }
+	// This way can live update
+	var Gallery=function Gallery(props){var generateGalleryList=function generateGalleryList(drawings){return Object.keys(drawings)// .filter(canvID => props.filter(drawings[canvID]))
+	.map(function(canvID,i){return _react2.default.createElement(_GalleryItem2.default,{key:i,title:drawings[canvID].title,desc:drawings[canvID].description,canvas:drawings[canvID].drawing,id:'canvas'+canvID,editCanvas:function editCanvas(canvID){return props.editCanvas(canvID.id);}});});};return _react2.default.createElement('div',{className:'gallery-div'},_react2.default.createElement('h1',null,'Gallery'),generateGalleryList(props.drawings));};exports.default=Gallery;
 
 /***/ },
 /* 422 */
