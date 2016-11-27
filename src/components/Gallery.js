@@ -11,6 +11,7 @@ const Gallery = props => {
           title={drawings[canvID].title}
           desc={drawings[canvID].description}
           canvas={drawings[canvID].drawing}
+          URL={drawings[canvID].url}
           id={`canvas${canvID}`}
           editCanvas={() => this.props.editCanvas(canvID)}
         />
