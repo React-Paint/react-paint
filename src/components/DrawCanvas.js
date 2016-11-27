@@ -4,17 +4,17 @@ const ReactDOM = require('react-dom');
 const PropTypes = React.PropTypes;
 
 const DrawableCanvas = React.createClass({
-  getInitialState(){
+  getInitialState() {
     return {
       canvas: null,
       context: null,
       drawing: false,
       lastX: 0,
       lastY: 0,
-      history: []
+      history: [],
     };
   },
-  componentDidMount(){
+  componentDidMount() {
     let canvas = ReactDOM.findDOMNode(this);
 
     canvas.style.width = '600px';
@@ -29,25 +29,25 @@ const DrawableCanvas = React.createClass({
       context: ctx
     });
   },
-  componentWillReceiveProps: function(nextProps) {
-    if(nextProps.clear){
+  componentWillReceiveProps: function (nextProps) {
+    if (nextProps.clear) {
       this.resetCanvas();
     }
   },
-  handleOnMouseDown(e){
+  handleOnMouseDown(e) {
     let rect = this.state.canvas.getBoundingClientRect();
     this.state.context.beginPath();
     this.props.unclear();
-    if(this.isMobile()){
+    if (this.isMobile()) {
       this.setState({
         lastX: e.targetTouches[0].pageX - rect.left,
-        lastY: e.targetTouches[0].pageY - rect.top
+        lastY: e.targetTouches[0].pageY - rect.top,
       });
     }
-    else{
+    else {
       this.setState({
         lastX: e.clientX - rect.left,
-        lastY: e.clientY - rect.top
+        lastY: e.clientY - rect.top,
       });
     }
 
@@ -55,19 +55,19 @@ const DrawableCanvas = React.createClass({
       drawing: true
     });
   },
-  handleOnMouseMove(e){
+  handleOnMouseMove(e) {
 
-    if(this.state.drawing){
+    if (this.state.drawing) {
       let rect = this.state.canvas.getBoundingClientRect();
       let lastX = this.state.lastX;
       let lastY = this.state.lastY;
       let currentX;
       let currentY;
-      if(this.isMobile()){
+      if (this.isMobile()) {
         currentX =  e.targetTouches[0].pageX - rect.left;
         currentY = e.targetTouches[0].pageY - rect.top;
       }
-      else{
+      else {
         currentX = e.clientX - rect.left;
         currentY = e.clientY - rect.top;
       }
@@ -76,16 +76,14 @@ const DrawableCanvas = React.createClass({
       this.draw(lastX, lastY, currentX, currentY);
       this.setState({
         lastX: currentX,
-        lastY: currentY
+        lastY: currentY,
       });
     }
   },
-  handleonMouseUp(){
+  handleonMouseUp() {
     this.setState({
-      drawing: false
+      drawing: false,
     });
-
-    // let imageData = this.state.context.getImageData(0, 0, this.state.canvas.width, this.state.canvas.height)
 
     let imageData = {
       canvas: this.state.canvas,
@@ -100,24 +98,24 @@ const DrawableCanvas = React.createClass({
     this.state.context.lineTo(cX,cY);
     this.state.context.stroke();
   },
-  resetCanvas(){
+  resetCanvas() {
     let width = this.state.context.canvas.width;
     let height = this.state.context.canvas.height;
     this.state.context.clearRect(0, 0, width, height);
   },
-  getDefaultStyle(){
+  getDefaultStyle() {
     return {
       backgroundColor: '#FFFFFF',
-      cursor: 'pointer'
+      cursor: 'pointer',
     };
   },
-  canvasStyle(){
+  canvasStyle() {
     let defaults =  this.getDefaultStyle();
     let custom = this.props.canvasStyle;
     return Object.assign({}, defaults, custom);
   },
   isMobile(){
-    if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+    if ( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
       return true;
     }
     return false;
