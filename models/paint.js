@@ -39,38 +39,4 @@ module.exports = {
       })
       .catch(err => next(err));
   }
-  /*
-  getAllDrawings(req,res,next) {
-    mongoDB().then((db) => {
-      db.collection('canvas')
-      .find({})
-      .toArray((err, data) => {
-        if(err) return next(err);
-        res.rows = data;
-        db.close();
-        next();
-      });
-      return false;
-    });
-    return false;
-  },
-  addDrawing(req,res,next) {
-    console.log(req.body.drawing);
-    const canvObj = {
-      cavasData: Array.from(req.body.drawing),
-    }
-    mongoDB().then(db => {
-      db.collection('canvas')
-      .insert(canvObj, (err, drawing) => {
-        if (err) return next(err);
-        res.row = drawing;
-        console.log(drawing);
-        db.close()
-        next();
-      });
-      return false;
-    });
-    return false;
-  },
-  */
 };
