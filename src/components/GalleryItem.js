@@ -10,7 +10,8 @@ export default class GalleryItem extends Component {
         <p>
           {this.props.desc}
         </p>
-        <img src={this.props.canvas} alt={this.props.title}/>
+        <img src={this.props.canvas} alt={this.props.title} id={this.props.id}/>
+        <button onClick={this.props.editCanvas}>Edit</button>
       </div>
     );
   }

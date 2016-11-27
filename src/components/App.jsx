@@ -4,6 +4,7 @@ import Form from './Form.jsx';
 import Gallery from './Gallery';
 import DrawCanvas from './DrawCanvas';
 import AjaxFunctions from '../helpers/AjaxFunctions';
+import CanvasHelper from '../helpers/CanvasHelper';
 import './App.css';
 
 export default class App extends Component {
@@ -75,11 +76,27 @@ export default class App extends Component {
     }
     AjaxFunctions.addDrawing(canvasData)
       .then(drawing => {
+        const newState = {...this.state.drawings};
+        console.log(newState);
+        newState[drawing.id] = drawing;
         this.setState({
-          drawings: drawing
+          drawings: newState
         })
       })
       .catch(err => console.log(err));
+  }
+
+  editCanvas(id) {
+    let imgSrc = AjaxFunctions.getImage(id);
+    AjaxFunctions.getDrawing(id)
+      .then((canv) => {
+        this.setState({
+          title: canv.title,
+          description: canv.description,
+          url: imgSrc.src.toString()
+        })
+      })
+      .catch(err => console.log(err))
   }
 
   updateCanvasIDs(canvas) {
@@ -162,12 +179,9 @@ export default class App extends Component {
 
         <Gallery
           drawings={this.state.drawings}
+          editCanvas={(id) => this.editCanvas(id)}
         />
       </div>
     );
   }
 }
-     //   <SketchPicker
-     //     color={this.state.color}
-      //    onChangeComplete={this.handleChangeComplete.bind(this)}
-     //   />

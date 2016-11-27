@@ -14,7 +14,6 @@ module.exports = {
       .catch(error => next(error));
   },
   addDrawing(req,res,next) {
-    console.log('req.body content:', req.body);
     sqlDB.one(`
       INSERT INTO
         canvas(title,description,drawing)
@@ -22,11 +21,23 @@ module.exports = {
         ($/title/, $/description/, $/drawing/)
       RETURNING *;
     `, req.body)
-    .then((canva) => {
-      res.rows = canva;
+    .then((canvas) => {
+      res.rows = canvas;
       next();
     })
     .catch(error => next(error));
+  },
+  getDrawing(req,res,next) {
+    console.log(req.params);
+    sqlDB.one(`
+      SELECT * FROM canvas
+      WHERE id = $/id/;
+      `, req.params)
+      .then(canvas => {
+        res.rows = canvas;
+        next();
+      })
+      .catch(err => next(err));
   }
   /*
   getAllDrawings(req,res,next) {
