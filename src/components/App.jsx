@@ -31,14 +31,13 @@ export default class App extends Component {
       .then(drawings => {
         this.setState({
           drawings,
-        })
+        });
       })
-      .catch(err => console.log(err))
+      .catch(err => console.log(err));
   }
 
   handleChangeComplete(draw) {
     this.setState({
-      // color: 'rgba(' + draw.rgb.r + ',' + draw.rgb.g + ',' + draw.rgb.b + ', ' + draw.rgb.a + ')',
       color: `rgba(${draw.rgb.r}, ${draw.rgb.g}, ${draw.rgb.b}, ${draw.rgb.a})`,
     });
   }
@@ -73,15 +72,16 @@ export default class App extends Component {
       title: this.state.title,
       description: this.state.description,
       drawing: this.state.imgData.canvas.toDataURL('png'),
-    }
+      url: this.state.url,
+    };
     AjaxFunctions.addDrawing(canvasData)
       .then(drawing => {
         const newState = {...this.state.drawings};
         newState[drawing.id] = drawing;
 
         this.setState({
-          drawings: newState
-        })
+          drawings: newState,
+        });
       })
       .catch(err => console.log(err));
   }
@@ -93,10 +93,10 @@ export default class App extends Component {
         this.setState({
           title: canv.title,
           description: canv.description,
-          url: imgSrc.src.toString()
-        })
+          url: imgSrc.src.toString(),
+        });
       })
-      .catch(err => console.log(err))
+      .catch(err => console.log(err));
   }
 
   updateCanvasIDs(canvas) {
@@ -113,13 +113,13 @@ export default class App extends Component {
 
   handleTitleChange(e) {
     this.setState({
-      title: e.target.value
-    })
+      title: e.target.value,
+    });
   }
   handleDescriptionChange(e) {
     this.setState({
-      description: e.target.value
-    })
+      description: e.target.value,
+    });
   }
 
   render() {
@@ -148,7 +148,7 @@ export default class App extends Component {
           brushColor={this.state.color}
           lineWidth={this.state.line}
           canvasStyle={{
-            background: 'url('+banana+')',
+            background: 'url(' + banana + ')',
             cursor: 'pointer',
           }}
           clear={this.state.clear}

@@ -4,7 +4,6 @@ import './App.css';
 
 export default class Gallery extends Component {
   render() {
-    console.log('rendering');
     const drawing = Object.keys(this.props.drawings)
       .map((canvID, ind) => (
         <GalleryItem
@@ -12,6 +11,7 @@ export default class Gallery extends Component {
           title={this.props.drawings[canvID].title}
           desc={this.props.drawings[canvID].description}
           canvas={this.props.drawings[canvID].drawing}
+          URL={this.props.drawings[canvID].url}
           id={`canvas${this.props.drawings[canvID].id}`}
           editCanvas={() => this.props.editCanvas(this.props.drawings[canvID].id)}
         />
