@@ -77,8 +77,10 @@ export default class App extends Component {
     AjaxFunctions.addDrawing(canvasData)
       .then(drawing => {
         const newState = {...this.state.drawings};
-        console.log(newState);
+        console.log(newState.length);
         newState[drawing.id] = drawing;
+        console.log(newState);
+
         this.setState({
           drawings: newState
         })
