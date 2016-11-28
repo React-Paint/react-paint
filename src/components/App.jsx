@@ -324,7 +324,7 @@ export default class App extends Component {
           handleChangeComplete={this.handleChangeComplete.bind(this)}
         />
         </div>
-        {this.state.showComponent ? <div>
+        {this.state.showComponent ? <div className="dontHitBottom">
           <Publish
             title={this.state.title}
             description={this.state.description}
