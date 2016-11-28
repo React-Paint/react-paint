@@ -25,7 +25,40 @@ export default class AjaxFunctions {
     .then(r => r.json())
   }
 
+  static deleteDrawing(id) {
+    return fetch(`/paint/${id}`, {
+     method: 'DELETE'
+   })
+  }
+
   static getImage(id) {
     return document.querySelector(`#canvas${id}`);
   }
+
+  static signUp(user, pass) {
+    return fetch('/users', {
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      method: 'POST',
+      body: JSON.stringify({
+        username: user,
+        password: pass
+      })
+    })
+  }
+
+  static logIn(user, pass) {
+    return fetch('/auth', {
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      method: 'POST',
+      body: JSON.stringify({
+        username: user,
+        password: pass
+      })
+    })
+  }
+
 }
