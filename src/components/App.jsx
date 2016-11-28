@@ -177,8 +177,8 @@ export default class App extends Component {
   }
 
   handleSignUp() {
-    let username = this.state.login.username;
-    let password = this.state.login.password;
+    let username = this.state.signup.username;
+    let password = this.state.signup.password;
 
     AjaxFunctions.signUp(username, password)
     .then(this.setState({
@@ -196,13 +196,21 @@ export default class App extends Component {
     let password = this.state.login.password;
 
     AjaxFunctions.logIn(username, password)
-    .then(this.setState({
-      login: {
-        username: '',
-        password: ''
+      .then(userData => {
+        if (userData.password === false) {
+          console.log('invalid password');
+        } else {
+          this.setState({
+            login: {
+              username: '',
+              password: ''
+            }
+          })
+          console.log('logged in');
+        }
       }
-    }))
-    .then(this.alertInfo(`You have logged in as ${username}`))
+    )
+    // .then(this.alertInfo(`You have logged in as ${username}`))
     .catch(err => console.log(err));
 
     this.handleAjaxGetAll();

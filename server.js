@@ -15,11 +15,17 @@ app.use(bodyParser.json());
 
 app.use('/paint', require('./routes/paint'));
 app.use('/users', require('./routes/users'));
-app.use('/auth', require('./routes/auth'));
+app.use('/auth', require('./routes/auth'))
 
 app.listen(PORT, () => console.log('server here! listening on', PORT));
 
 app.use((err, req, res, next) => {
   console.error(err, next);
-  res.status(500).send('Something broked!');
+  if (err.password === false) {
+    console.log('invalid password');
+    res.json({password:false})
+  } else {
+    console.log('generic error');
+    res.status(500).send('Something broked!');
+  }
 });
