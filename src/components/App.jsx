@@ -39,16 +39,6 @@ export default class App extends Component {
     };
   }
 
-  componentDidMount() {
-    AjaxFunctions.getDrawings()
-      .then(drawings => {
-        this.setState({
-          drawings,
-        });
-      })
-      .catch(err => console.log(err));
-  }
-
   handleChangeComplete(draw) {
     this.setState({
       color: `rgba(${draw.rgb.r}, ${draw.rgb.g}, ${draw.rgb.b}, ${draw.rgb.a})`,
@@ -124,13 +114,7 @@ export default class App extends Component {
      })
      .catch(err => console.log(err));
 
-     AjaxFunctions.getDrawings()
-       .then(drawings => {
-         this.setState({
-           drawings,
-         });
-       })
-       .catch(err => console.log(err));
+     this.handleAjaxGetAll()
   }
 
   updateCanvasIDs(canvas) {
@@ -157,7 +141,6 @@ export default class App extends Component {
   }
 
   updateFormSignUpUsername(e) {
-    console.log(e.target.value);
     this.setState({
       signup: {
         username: e.target.value,
@@ -167,7 +150,6 @@ export default class App extends Component {
   }
 
   updateFormSignUpPassword(e) {
-    console.log(e.target.value);
     this.setState({
       signup: {
         username: this.state.signup.username,
@@ -195,16 +177,10 @@ export default class App extends Component {
   }
 
   handleSignUp() {
-    fetch('/users', {
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      method: 'POST',
-      body: JSON.stringify({
-        username: this.state.signup.username,
-        password: this.state.signup.password
-      })
-    })
+    let username = this.state.login.username;
+    let password = this.state.login.password;
+
+    AjaxFunctions.signUp(username, password)
     .then(this.setState({
       signup: {
         username: '',
@@ -216,28 +192,30 @@ export default class App extends Component {
   }
 
   handleLogIn() {
-    fetch('/auth', {
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      method: 'POST',
-      body: JSON.stringify({
-        username: this.state.login.username,
-        password: this.state.login.password
-      })
-    })
+    let username = this.state.login.username;
+    let password = this.state.login.password;
+
+    AjaxFunctions.logIn(username, password)
     .then(this.setState({
       login: {
         username: '',
         password: ''
       }
     }))
-    .then(this.onSuccessfulLogIn)
+    .then(this.alertInfo(`You have logged in as ${username}`))
     .catch(err => console.log(err));
+
+    this.handleAjaxGetAll();
   }
 
-  onSuccessfulLogIn(a,b) {
-    console.log(a,b);
+  handleAjaxGetAll() {
+    AjaxFunctions.getDrawings()
+      .then(drawings => {
+        this.setState({
+          drawings,
+        });
+      })
+      .catch(err => console.log(err));
   }
 
   alertInfo(msg) {

@@ -34,4 +34,31 @@ export default class AjaxFunctions {
   static getImage(id) {
     return document.querySelector(`#canvas${id}`);
   }
+
+  static signUp(user, pass) {
+    return fetch('/users', {
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      method: 'POST',
+      body: JSON.stringify({
+        username: user,
+        password: pass
+      })
+    })
+  }
+
+  static logIn(user, pass) {
+    return fetch('/auth', {
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      method: 'POST',
+      body: JSON.stringify({
+        username: user,
+        password: pass
+      })
+    })
+  }
+
 }
