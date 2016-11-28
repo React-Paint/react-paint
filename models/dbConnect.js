@@ -1,4 +1,4 @@
-const pgp = require('pg-promise')();
+const pgp = require('pg-promise')({});
 
 const config = process.env.DATABASE_URL || {
   host:       process.env.DB_HOST,
