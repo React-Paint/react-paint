@@ -9,7 +9,7 @@
   "private": true,
   "scripts": {
     "clean": "rm -rf dist && rm -rf node_modules",
-    "heroku-prebuild": "./scripts/deployment_react.sh",
+    "heroku-prebuild": "scripts/deployment_react.sh",
     "rebuild": "webpack -d --progress --colors",
     "watch": "webpack -d --progress --watch"
   },
