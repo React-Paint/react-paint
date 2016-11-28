@@ -1,9 +1,51 @@
-const db = require('./dbConnect');
+const { sqlDB } = require('./dbConnect');
 
 module.exports = {
-<<<<<<< HEAD
-  getAll
-=======
+  getDrawings(req, res, next) {
+    sqlDB.any(`
+      SELECT * FROM canvas;
+      `)
+      .then((canvas) => {
+        res.rows = canvas;
+        console.log('num items: ', canvas.length);
+        next();
+      })
+      .catch(error => next(error));
+  },
+  addDrawing(req,res,next) {
+    sqlDB.one(`
+      INSERT INTO
+        canvas(title,description,drawing,url)
+      VALUES
+        ($/title/, $/description/, $/drawing/, $/url/)
+      RETURNING *;
+    `, req.body)
+    .then((canvas) => {
+      res.rows = canvas;
+      next();
+    })
+    .catch(error => next(error));
+  },
+  getDrawing(req,res,next) {
+    console.log(req.params);
+    sqlDB.one(`
+      SELECT * FROM canvas
+      WHERE id = $/id/;
+      `, req.params)
+      .then(canvas => {
+        res.rows = canvas;
+        next();
+      })
+      .catch(err => next(err));
+  },
+  deletePainting(req, res, next) {
+    sqlDB.none(`
+      DELETE FROM canvas
+      WHERE id = $/id/;
+      `, req.params)
+      .then(next())
+      .catch( error => next(error));
+  },
 
->>>>>>> 0f3c847241c3829e7f3ca088935a0aa2c911b320
 };
+
