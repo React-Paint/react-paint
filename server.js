@@ -16,7 +16,6 @@ app.use(bodyParser.json());
 app.use('/paint', require('./routes/paint'));
 app.use('/users', require('./routes/users'));
 app.use('/auth', require('./routes/auth'));
-// app.use('/users', require('./routes/users'));
 
 app.listen(PORT, () => console.log('server here! listening on', PORT));
 

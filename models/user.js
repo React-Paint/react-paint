@@ -1,7 +1,11 @@
-const db = require('./dbConnect');
+const { sqlDB } = require('./dbConnect');
 
 function createUser(req, res, next) {
-  db.none(`INSERT INTO users (username, password) VALUES ($1, $2)`, [req.body.username, req.body.password])
+  sqlDB.none(`
+    INSERT INTO users
+      (username, password)
+    VALUES ($1, $2);
+    `, [req.body.username, req.body.password])
     .then(next())
     .catch((err) => {
       console.log(err);
@@ -10,7 +14,12 @@ function createUser(req, res, next) {
 }
 
 function findByUsername(username) {
-  return db.one('SELECT * FROM users WHERE username = $1', [username]);
+  return sqlDB.one(`
+    SELECT * FROM
+      users
+    WHERE
+      username = $1
+  `, [username]);
 }
 
 module.exports = {

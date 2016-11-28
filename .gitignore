@@ -2,10 +2,4 @@ node_modules/
 
 dist/
 
-dist/js
-
-dist/css
-
-dist/index.html
-
 .env

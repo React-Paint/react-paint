@@ -6,7 +6,7 @@ const sendStatus = (req, res) => res.status(200).end();
 
 paint.route('/:id')
   .get(db.getDrawing, sendJSONResp)
-  .delete(db.deletePainting, sendJSONResp);
+  .delete(db.deletePainting, sendStatus);
 
 paint.route('/')
   .get(db.getDrawings, sendJSONResp)
