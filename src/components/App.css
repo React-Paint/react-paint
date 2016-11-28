@@ -1,4 +1,55 @@
+* {
+  margin: 0;
+  padding: 0;
+}
 .ctx {
   width: 6000px;
   height: 400px;
+}
+header {
+  background-color: orange;
+  position: fixed;
+  top: 0;
+  width: 100vw;
+}
+.userLogin {
+  position: fixed;
+  top:0;
+  right: 0;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  justify-content: center;
+}
+.rangeThick {
+  margin-top: 25px;
+  margin-right: 10px;
+}
+main {
+  margin-top: 65px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+.gal {
+  overflow-y: auto;
+  height: 70vh;
+  margin-left: 40px;
+}
+.picture {
+  margin-top: 30px;
+}
+.stylings {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+footer {
+  position: fixed;
+  bottom: 0;
+  width: 100vw;
+  height: 40px;
+  background: linear-gradient(to bottom right, white, blue);
 }
