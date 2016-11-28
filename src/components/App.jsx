@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import SketchPicker from 'react-color';
 import Form from './Form.jsx';
 import Gallery from './Gallery';
+import Color from './Color';
+import Publish from './Publish';
 import DrawCanvas from './DrawCanvas';
 import AjaxFunctions from '../helpers/AjaxFunctions';
 import CanvasHelper from '../helpers/CanvasHelper';
@@ -146,17 +147,6 @@ export default class App extends Component {
   render() {
     const banana = this.state.url;
 // Banana is attributed to trevor!!!!! the "this" in this.state.url was not recognized in background
-    const popover = {
-      position: 'absolute',
-      zIndex: '2',
-    };
-    const cover = {
-      position: 'fixed',
-      top: '0px',
-      right: '0px',
-      bottom: '0px',
-      left: '0px',
-    };
     const overlap = {
       position: 'absolute',
       left: '10px',
@@ -183,30 +173,25 @@ export default class App extends Component {
           clear={this.state.clear}
           unclear={this.unClear.bind(this)}
           updateCanvasIDs={(imgData) => this.updateCanvasIDs(imgData)}
-          // handleColorChange={() => this.handleColorChange()}
         />
         <img style={overlap} src={this.state.editImg} />
         <h1 style= {noteColor}>{this.state.notification}</h1>
         <input type="range" min="2" max="15" step=".5" onChange={this.lineChange.bind(this)} />
-        <div>
-          <button onClick={this.handleClick.bind(this)}>Pick Color</button>
-          { this.state.displayColorPicker ? <div style={popover}>
-            <div style={cover} onClick={this.handleClose.bind(this)} />
-            <SketchPicker
-              color={this.state.color}
-              onChangeComplete={this.handleChangeComplete.bind(this)}
-            />
-          </div> : null }
-        </div>
         <button onClick={() => this.clickClear()}>clear</button>
-
-        <div className="publish-div">
-          <input type="text" value={this.state.title} onChange={(e) => this.handleTitleChange(e)}/>
-          <textarea value={this.state.description} onChange={(e) => this.handleDescriptionChange(e)}>
-            Enter a description
-          </textarea>
-          <button onClick={() => this.publishDrawing()}>Publish</button>
-        </div>
+        <Color
+          handleClick={this.handleClick.bind(this)}
+          displayColorPicker={this.state.displayColorPicker}
+          handleClose={this.handleClose.bind(this)}
+          color={this.state.color}
+          handleChangeComplete={this.handleChangeComplete.bind(this)}
+        />
+        <Publish
+          title={this.state.title}
+          description={this.state.description}
+          handleTitleChange={(e) => this.handleTitleChange(e)}
+          handleDescriptionChange={(e) => this.handleDescriptionChange(e)}
+          publishDrawing={this.publishDrawing.bind(this)}
+        />
 
         <Gallery
           drawings={this.state.drawings}

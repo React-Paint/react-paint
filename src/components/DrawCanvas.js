@@ -2,6 +2,7 @@
 const React = require('react');
 const ReactDOM = require('react-dom');
 const PropTypes = React.PropTypes;
+import './DrawCanvas.css';
 
 const DrawableCanvas = React.createClass({
   getInitialState() {
