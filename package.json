@@ -1,9 +1,9 @@
 {
-  "name": "bobby-king-react-template",
+  "name": "React Paint",
   "version": "1.0.0",
   "description": "React application template using webpack",
   "engines": {
-  "node": "6.6.0"
+    "node": "7.1.0"
   },
   "main": "server.js",
   "private": true,
@@ -18,7 +18,7 @@
     "type": "",
     "url": ""
   },
-  "author": "Bobby King",
+  "author": "Phil Winchester",
   "license": "SEE LICENSE IN LICENSE",
   "bugs": {
     "url": "https://github.com/gittheking/react_template/issues"
