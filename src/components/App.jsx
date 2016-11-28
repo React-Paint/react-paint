@@ -293,7 +293,7 @@ export default class App extends Component {
             />
           </div> : null}
         </header>
-        <h1 style={noteColor}>{this.state.notification}</h1>
+        <h1 className="notify" style={noteColor}>{this.state.notification}</h1>
         <main>
         <div className="picture">
         <Form
