@@ -1,5 +1,8 @@
 BEGIN;
 
+-- deploying schema to heroku
+-- `heroku pg:psql --app react-paint < db/schema.sql`
+
 DROP TABLE IF EXISTS canvas;
 DROP TABLE IF EXISTS users;
 
