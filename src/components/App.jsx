@@ -18,11 +18,12 @@ export default class App extends Component {
       title: "",
       description: "",
       imgData: {},
-      back: [],
       clear: false,
       line: 4,
       displayColorPicker: false,
       drawings: [],
+      editImg: "",
+      notification:"",
     };
   }
 
@@ -44,6 +45,8 @@ export default class App extends Component {
   clickClear() {
     this.setState({
       clear: true,
+      editImg: "",
+      notification: "",
     });
   }
   unClear() {
@@ -81,19 +84,22 @@ export default class App extends Component {
 
         this.setState({
           drawings: newState,
+          notification: "",
         });
       })
       .catch(err => console.log(err));
   }
 
   editCanvas(id) {
-    let imgSrc = AjaxFunctions.getImage(id);
+    const imgSrc = AjaxFunctions.getImage(id);
     AjaxFunctions.getDrawing(id)
       .then((canv) => {
         this.setState({
           title: canv.title,
           description: canv.description,
-          url: imgSrc.src.toString(),
+          url: canv.url,
+          editImg: imgSrc.src.toString(),
+          notification: "HIT CLEAR TO DRAW MORE OR ADD NEW TITLE AND DESCRIPTION AND SAVE AGAIN!!"
         });
       })
       .catch(err => console.log(err));
@@ -136,6 +142,14 @@ export default class App extends Component {
       bottom: '0px',
       left: '0px',
     };
+    const overlap = {
+      position: 'absolute',
+      left: '10px',
+      top: '100px',
+    };
+    const noteColor = {
+      color: 'red',
+    };
     return (
       <div>
         <h1>Paint Pals</h1>
@@ -156,6 +170,8 @@ export default class App extends Component {
           updateCanvasIDs={(imgData) => this.updateCanvasIDs(imgData)}
           // handleColorChange={() => this.handleColorChange()}
         />
+        <img style={overlap} src={this.state.editImg} />
+        <h1 style= {noteColor}>{this.state.notification}</h1>
         <input type="range" min="2" max="15" step=".5" onChange={this.lineChange.bind(this)} />
         <div>
           <button onClick={this.handleClick.bind(this)}>Pick Color</button>
