@@ -7,8 +7,8 @@ export default class GalleryItem extends Component {
     const banana = this.props.URL;
     const style = {
       background: 'url(' + banana + ')',
-      height: 400,
-      width: 600,
+      height: 200,
+      width: 300,
     };
     return (
       <div className="drawing-card">
@@ -17,10 +17,12 @@ export default class GalleryItem extends Component {
           {this.props.desc}
         </p>
         <div style={style}>
-          <img src={this.props.canvas} alt={this.props.title} id={this.props.id} />
+          <img className="renderz" src={this.props.canvas} alt={this.props.title} id={this.props.id} />
         </div>
+        <div className="buttonz">
         <button onClick={this.props.editCanvas}>Edit</button>
         <button onClick={this.props.deleteCanvas}>Delete</button>
+        </div>
       </div>
     );
   }
