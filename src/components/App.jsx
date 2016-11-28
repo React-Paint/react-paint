@@ -188,7 +188,7 @@ export default class App extends Component {
         password: ''
       }
     }))
-    .then(this.alertInfo('You have signed up!'))
+    .then(this.alertInfo('You have signed up! Login to continue'))
     .catch(err => console.log(err));
   }
 
@@ -199,25 +199,26 @@ export default class App extends Component {
     AjaxFunctions.logIn(username, password)
       .then(userData => {
         if (userData.password === false) {
-          console.log('invalid password');
+          this.setState({
+            notification: 'INVALID USERNAME AND PASSWORD COMBINATION',
+          });
         } else {
           this.setState({
             login: {
               username: '',
-              password: ''
-            }
-          })
+              password: '',
+            },
+            showComponent: true,
+            hideComponent: false,
+            notification: '',
+          });
           console.log('logged in');
+          this.handleAjaxGetAll();
         }
       })
       // setup a display hello message
-      .then(this.setState({
-        showComponent: true,
-        hideComponent: false,
-      }))
       .catch(err => console.log(err));
 
-      this.handleAjaxGetAll();
   }
 
   handleAjaxGetAll() {
@@ -264,7 +265,8 @@ export default class App extends Component {
             updateFormPassword={event => this.updateFormLogInPassword(event)}
             handleFormSubmit={() => this.handleLogIn()}
           />
-        </div>: null}
+        </div> : null}
+        <h1 style={noteColor}>{this.state.notification}</h1>
         <Form
           updateUrl={(e) => this.updateUrl(e)}
           searchUrl={this.searchUrl.bind(this)}
@@ -282,7 +284,6 @@ export default class App extends Component {
           updateCanvasIDs={(imgData) => this.updateCanvasIDs(imgData)}
         />
         <img style={overlap} src={this.state.editImg} />
-        <h1 style={noteColor}>{this.state.notification}</h1>
         <input type="range" min="2" max="15" step=".5" onChange={this.lineChange.bind(this)} />
         <button onClick={() => this.clickClear()}>clear</button>
         <Color
