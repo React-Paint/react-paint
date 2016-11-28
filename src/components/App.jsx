@@ -4,6 +4,8 @@ import Gallery from './Gallery';
 import Color from './Color';
 import Publish from './Publish';
 import DrawCanvas from './DrawCanvas';
+import SignUp from './SignUp.js';
+import Login from './Login.js';
 import AjaxFunctions from '../helpers/AjaxFunctions';
 import CanvasHelper from '../helpers/CanvasHelper';
 import './App.css';
@@ -25,6 +27,15 @@ export default class App extends Component {
       drawings: [],
       editImg: "",
       notification:"",
+      signup: {
+        username: '',
+        password: '',
+      },
+      login: {
+        loggedIn: false,
+        username: '',
+        password: '',
+      },
     };
   }
 
@@ -144,6 +155,94 @@ export default class App extends Component {
     });
   }
 
+  updateFormSignUpUsername(e) {
+    console.log(e.target.value);
+    this.setState({
+      signup: {
+        username: e.target.value,
+        password: this.state.signup.password
+      }
+    });
+  }
+
+  updateFormSignUpPassword(e) {
+    console.log(e.target.value);
+    this.setState({
+      signup: {
+        username: this.state.signup.username,
+        password: e.target.value
+      }
+    });
+  }
+
+  updateFormLogInUsername(e) {
+    this.setState({
+      login: {
+        username: e.target.value,
+        password: this.state.login.password
+      }
+    });
+  }
+
+  updateFormLogInPassword(e) {
+    this.setState({
+      login: {
+        username: this.state.login.username,
+        password: e.target.value
+      }
+    });
+  }
+
+  handleSignUp() {
+    fetch('/users', {
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      method: 'POST',
+      body: JSON.stringify({
+        username: this.state.signup.username,
+        password: this.state.signup.password
+      })
+    })
+    .then(this.setState({
+      signup: {
+        username: '',
+        password: ''
+      }
+    }))
+    .then(this.alertInfo('You have signed up!'))
+    .catch(err => console.log(err));
+  }
+
+  handleLogIn() {
+    fetch('/auth', {
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      method: 'POST',
+      body: JSON.stringify({
+        username: this.state.login.username,
+        password: this.state.login.password
+      })
+    })
+    .then(this.setState({
+      login: {
+        username: '',
+        password: ''
+      }
+    }))
+    .then(this.onSuccessfulLogIn)
+    .catch(err => console.log(err));
+  }
+
+  onSuccessfulLogIn(a,b) {
+    console.log(a,b);
+  }
+
+  alertInfo(msg) {
+    alert(msg);
+  }
+
   render() {
     const banana = this.state.url;
 // Banana is attributed to trevor!!!!! the "this" in this.state.url was not recognized in background
@@ -158,6 +257,21 @@ export default class App extends Component {
     return (
       <div>
         <h1>Paint Pals</h1>
+        <SignUp
+          signUpUsername={this.state.signup.username}
+          signUpPassword={this.state.signup.password}
+          updateFormUsername={event => this.updateFormSignUpUsername(event)}
+          updateFormPassword={event => this.updateFormSignUpPassword(event)}
+          handleFormSubmit={() => this.handleSignUp()}
+        />
+        <Login
+          className={this.state.login.loggedIn ? 'hidden' : ''}
+          logInUsername={this.state.login.username}
+          logInPassword={this.state.login.password}
+          updateFormUsername={event => this.updateFormLogInUsername(event)}
+          updateFormPassword={event => this.updateFormLogInPassword(event)}
+          handleFormSubmit={() => this.handleLogIn()}
+        />
         <Form
           updateUrl={(e) => this.updateUrl(e)}
           searchUrl={this.searchUrl.bind(this)}

@@ -1,18 +1,11 @@
-const user = require('express').Router();
-const db = require('../models/user');
+const express = require('express');
+const router = express.Router();
+const { createUser } = require('../models/user');
 
-const sendJSONresp = (req,res) => res.json(res.rows);
+// handle all the routes
 
-user.route('/')
-  .get(db.getAllUsers, sendJSONresp)
+router.post('/', createUser, (req, res) => {
+  res.status(200).end();
+});
 
-// user.route('/:ID')
-//   .get(getPainting , sendJSONresp);
-//   .delete(deletePainting, sendJSONresp);
-//   .put(editPainting, sendJSONresp);
-//
-// user.route('/:ID/edit')
-//   .get(getPainting , sendJSONresp);
-//   .post(updatePainting , sendJSONresp);
-
-module.exports = user;
+module.exports = router;
