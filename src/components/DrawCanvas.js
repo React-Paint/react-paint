@@ -120,7 +120,7 @@ const DrawableCanvas = React.createClass({
   },
   render() {
     return (
-      <canvas 
+      <canvas
         style = {this.canvasStyle()}
         onMouseDown = {this.handleOnMouseDown}
         onTouchStart = {this.handleOnMouseDown}
