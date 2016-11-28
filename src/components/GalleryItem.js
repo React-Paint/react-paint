@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import './App.css';
+import './GalleryItem.css';
 
 export default class GalleryItem extends Component {
 

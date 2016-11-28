@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import './Publish.css';
 
 export default class Publish extends Component {
   render() {

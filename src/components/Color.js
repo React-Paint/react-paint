@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import SketchPicker from 'react-color';
+import './Color.css';
 
 export default class Color extends Component {
   render() {
