@@ -1,5 +1,5 @@
 {
-  "name": "React Paint",
+  "name": "react-paint",
   "version": "1.0.0",
   "description": "React application template using webpack",
   "engines": {
