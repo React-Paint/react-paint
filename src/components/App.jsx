@@ -7,6 +7,8 @@ import Color from './Color/Color';
 import Publish from './Publish/Publish';
 import DrawCanvas from './DrawCanvas/DrawCanvas';
 import AjaxFunctions from '../helpers/AjaxFunctions';
+import CanvasHelper from '../helpers/CanvasHelper';
+import DrawLogo from './DrawLogo/DrawLogo.js';
 import './App.css';
 
 export default class App extends Component {
@@ -23,6 +25,10 @@ export default class App extends Component {
       clear: false,
       line: 4,
       displayColorPicker: false,
+      displayLogin: false,
+      displaySignup: false,
+      hideLogin: true,
+      hideSignup: true,
       drawings: [],
       editImg: "",
       notification:"",
@@ -80,7 +86,7 @@ export default class App extends Component {
       drawing: this.state.imgData.canvas.toDataURL('png'),
       url: this.state.url,
     };
-    AjaxFunctions.addDrawing(canvasData)
+      AjaxFunctions.addDrawing(canvasData)
       .then(drawing => {
         const newState = {...this.state.drawings};
         newState[drawing.id] = drawing;
@@ -115,7 +121,7 @@ export default class App extends Component {
      })
      .catch(err => console.log(err));
 
-     this.handleAjaxGetAll()
+    this.handleAjaxGetAll();
   }
 
   updateCanvasIDs(canvas) {
@@ -145,8 +151,8 @@ export default class App extends Component {
     this.setState({
       signup: {
         username: e.target.value,
-        password: this.state.signup.password
-      }
+        password: this.state.signup.password,
+      },
     });
   }
 
@@ -154,8 +160,8 @@ export default class App extends Component {
     this.setState({
       signup: {
         username: this.state.signup.username,
-        password: e.target.value
-      }
+        password: e.target.value,
+      },
     });
   }
 
@@ -163,8 +169,8 @@ export default class App extends Component {
     this.setState({
       login: {
         username: e.target.value,
-        password: this.state.login.password
-      }
+        password: this.state.login.password,
+      },
     });
   }
 
@@ -172,8 +178,8 @@ export default class App extends Component {
     this.setState({
       login: {
         username: this.state.login.username,
-        password: e.target.value
-      }
+        password: e.target.value,
+      },
     });
   }
 
@@ -185,10 +191,13 @@ export default class App extends Component {
     .then(this.setState({
       signup: {
         username: '',
-        password: ''
-      }
+        password: '',
+      },
+      displayLogin: false,
+      hideLogin: true,
+      displaySignup: false,
+      hideSignup: true,
     }))
-    .then(this.alertInfo('You have signed up!'))
     .catch(err => console.log(err));
   }
 
@@ -199,23 +208,32 @@ export default class App extends Component {
     AjaxFunctions.logIn(username, password)
       .then(userData => {
         if (userData.password === false) {
-          console.log('invalid password');
+          this.setState({
+            notification: 'INVALID USERNAME AND PASSWORD COMBINATION',
+            displayLogin: false,
+            hideLogin: true,
+            displaySignup: false,
+            hideSignup: true,
+          });
         } else {
           console.log('logged in');
           this.setState({
             login: {
               username: '',
-              password: ''
+              password: '',
             },
             showComponent: true,
             hideComponent: false,
-          })
+            notification: '',
+            displayLogin: false,
+            hideLogin: true,
+            displaySignup: false,
+            hideSignup: true,
+          });
           this.handleAjaxGetAll();
         }
       })
-      // setup a display hello message
       .catch(err => console.log(err));
-
   }
 
   handleAjaxGetAll() {
@@ -228,8 +246,12 @@ export default class App extends Component {
       .catch(err => console.log(err));
   }
 
-  alertInfo(msg) {
-    alert(msg);
+  loginDisplay() {
+    this.setState({ displayLogin: true, hideLogin: false, displaySignup: false, hideSignup: true });
+  }
+
+  SignupDisplay() {
+    this.setState({ displaySignup: true, hideSignup: false, displayLogin: false, hideLogin: true });
   }
 
   render() {
@@ -245,24 +267,35 @@ export default class App extends Component {
     };
     return (
       <div>
-        <h1>Paint Pals</h1>
-        {this.state.hideComponent ? <div>
-          <SignUp
-            signUpUsername={this.state.signup.username}
-            signUpPassword={this.state.signup.password}
-            updateFormUsername={event => this.updateFormSignUpUsername(event)}
-            updateFormPassword={event => this.updateFormSignUpPassword(event)}
-            handleFormSubmit={() => this.handleSignUp()}
-          />
-          <Login
-            className={this.state.login.loggedIn ? 'hidden' : ''}
-            logInUsername={this.state.login.username}
-            logInPassword={this.state.login.password}
-            updateFormUsername={event => this.updateFormLogInUsername(event)}
-            updateFormPassword={event => this.updateFormLogInPassword(event)}
-            handleFormSubmit={() => this.handleLogIn()}
-          />
-        </div>: null}
+        <header>
+          <DrawLogo />
+          {this.state.hideComponent ? <div className="userLogin">
+            <SignUp
+              signUpUsername={this.state.signup.username}
+              signUpPassword={this.state.signup.password}
+              updateFormUsername={event => this.updateFormSignUpUsername(event)}
+              updateFormPassword={event => this.updateFormSignUpPassword(event)}
+              handleFormSubmit={() => this.handleSignUp()}
+              displaySignup={this.state.displaySignup}
+              hideSignup={this.state.hideSignup}
+              SignupDisplay={this.SignupDisplay.bind(this)}
+            />
+            <Login
+              className={this.state.login.loggedIn ? 'hidden' : ''}
+              logInUsername={this.state.login.username}
+              logInPassword={this.state.login.password}
+              updateFormUsername={event => this.updateFormLogInUsername(event)}
+              updateFormPassword={event => this.updateFormLogInPassword(event)}
+              handleFormSubmit={() => this.handleLogIn()}
+              displayLogin={this.state.displayLogin}
+              hideLogin={this.state.hideLogin}
+              loginDisplay={this.loginDisplay.bind(this)}
+            />
+          </div> : null}
+        </header>
+        <h1 style={noteColor}>{this.state.notification}</h1>
+        <main>
+        <div className="picture">
         <Form
           updateUrl={(e) => this.updateUrl(e)}
           searchUrl={this.searchUrl.bind(this)}
@@ -280,8 +313,8 @@ export default class App extends Component {
           updateCanvasIDs={(imgData) => this.updateCanvasIDs(imgData)}
         />
         <img style={overlap} src={this.state.editImg} />
-        <h1 style={noteColor}>{this.state.notification}</h1>
-        <input type="range" min="2" max="15" step=".5" onChange={this.lineChange.bind(this)} />
+        <div className="stylings">
+        <input className="rangeThick" type="range" min="2" max="15" step=".5" onChange={this.lineChange.bind(this)} />
         <button onClick={() => this.clickClear()}>clear</button>
         <Color
           handleClick={this.handleClick.bind(this)}
@@ -290,6 +323,7 @@ export default class App extends Component {
           color={this.state.color}
           handleChangeComplete={this.handleChangeComplete.bind(this)}
         />
+        </div>
         {this.state.showComponent ? <div>
           <Publish
             title={this.state.title}
@@ -298,12 +332,21 @@ export default class App extends Component {
             handleDescriptionChange={(e) => this.handleDescriptionChange(e)}
             publishDrawing={this.publishDrawing.bind(this)}
           />
+          </div>: null}
+        </div>
+        <div className="gal">
+        {this.state.showComponent ? <div>
           <Gallery
             drawings={this.state.drawings}
             editCanvas={(id) => this.editCanvas(id)}
             deleteCanvas={(id) => this.deleteCanvas(id)}
           />
         </div>: null}
+      </div>
+        </main>
+        <footer className="footer">
+        </footer>
+
       </div>
     );
   }
