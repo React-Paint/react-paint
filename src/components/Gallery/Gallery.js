@@ -10,6 +10,7 @@ export default class Gallery extends Component {
           key={ind}
           title={this.props.drawings[canvID].title}
           desc={this.props.drawings[canvID].description}
+          username={this.props.drawings[canvID].username}
           canvas={this.props.drawings[canvID].drawing}
           URL={this.props.drawings[canvID].url}
           id={`canvas${this.props.drawings[canvID].id}`}

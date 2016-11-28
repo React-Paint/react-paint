@@ -81,11 +81,14 @@ export default class App extends Component {
   }
 
   publishDrawing() {
+    console.log(this.state.login.username);
     const canvasData = {
       title: this.state.title,
       description: this.state.description,
       drawing: this.state.imgData.canvas.toDataURL('png'),
       url: this.state.url,
+      username: this.state.login.username
+
     };
       AjaxFunctions.addDrawing(canvasData)
       .then(drawing => {
@@ -113,7 +116,7 @@ export default class App extends Component {
           description: canv.description,
           url: canv.url,
           editImg: imgSrc.src.toString(),
-          notification: "HIT CLEAR TO DRAW MORE OR ADD NEW TITLE AND DESCRIPTION AND SAVE AGAIN!!",
+          notification: "HIT CLEAR TO DRAW MORE OR ADD NEW TITLE, DESCRIPTION, OR BACKGROUND AND SAVE AGAIN!!",
         });
       })
       .catch(err => console.log(err));
@@ -183,7 +186,6 @@ export default class App extends Component {
       },
     });
   }
-
   handleSignUp() {
     let username = this.state.signup.username;
     let password = this.state.signup.password;
@@ -201,7 +203,6 @@ export default class App extends Component {
     }))
     .catch(err => console.log(err));
   }
-
   handleLogIn() {
     let username = this.state.login.username;
     let password = this.state.login.password;
@@ -219,10 +220,6 @@ export default class App extends Component {
         } else {
           console.log('logged in');
           this.setState({
-            login: {
-              username: '',
-              password: '',
-            },
             showComponent: true,
             hideComponent: false,
             notification: '',
@@ -236,7 +233,6 @@ export default class App extends Component {
       })
       .catch(err => console.log(err));
   }
-
   handleAjaxGetAll() {
     AjaxFunctions.getDrawings()
       .then(drawings => {
@@ -246,15 +242,13 @@ export default class App extends Component {
       })
       .catch(err => console.log(err));
   }
-
   loginDisplay() {
     this.setState({ displayLogin: true, hideLogin: false, displaySignup: false, hideSignup: true });
   }
-
   SignupDisplay() {
     this.setState({ displaySignup: true, hideSignup: false, displayLogin: false, hideLogin: true });
   }
- d
+
   render() {
     const banana = this.state.url;
 // Banana is attributed to trevor!!!!! the "this" in this.state.url was not recognized in background
