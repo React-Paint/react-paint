@@ -1,9 +1,22 @@
+* {
+  margin: 0;
+  padding: 0;
+}
 .ctx {
   width: 6000px;
   height: 400px;
 }
 
-
+footer {
+  position: center;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  bottom: 0;
+  padding: 1rem;
+  text-align: center;
+  background: linear-gradient(to bottom right, white, blue);
+}
 /*.App-nav {
   float:right;
   width: ;
@@ -28,6 +41,4 @@
 }
 */
 
-h1 {
-  color:red;
-}
+

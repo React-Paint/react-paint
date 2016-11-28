@@ -43,19 +43,6 @@ export default class App extends Component {
     };
   }
 
-<<<<<<< HEAD
-  componentDidMount() {
-    AjaxFunctions.getDrawings()
-      .then(drawings => {
-        this.setState({
-          drawings,
-        });
-      })
-      // .catch(err => console.log(err));
-  }
-
-=======
->>>>>>> c8934ca0238b7318bdebbb1bf6f2f90b2fffe8d7
   handleChangeComplete(draw) {
     this.setState({
       color: `rgba(${draw.rgb.r}, ${draw.rgb.g}, ${draw.rgb.b}, ${draw.rgb.a})`,
@@ -261,12 +248,7 @@ export default class App extends Component {
     };
     return (
       <div>
-        <DrawLogo/>
-
-            <button className="buttonStyle" type="button">Sign Up</button>
-            <button className="buttonStyle" type="button">Log In</button>
-
-        <h1>Paint Pals</h1>
+        <DrawLogo />
         {this.state.hideComponent ? <div>
           <SignUp
             signUpUsername={this.state.signup.username}
@@ -283,7 +265,7 @@ export default class App extends Component {
             updateFormPassword={event => this.updateFormLogInPassword(event)}
             handleFormSubmit={() => this.handleLogIn()}
           />
-        </div>: null}
+        </div> : null}
         <Form
           updateUrl={(e) => this.updateUrl(e)}
           searchUrl={this.searchUrl.bind(this)}
@@ -325,6 +307,12 @@ export default class App extends Component {
             deleteCanvas={(id) => this.deleteCanvas(id)}
           />
         </div>: null}
+
+        <footer className="footer">
+          <img src="https://www.seeklogo.net/wp-content/uploads/2013/11/facebook-flat-vector-logo-400x400.png" alt="pic" height="50" width="50"/>
+          <img src="http://blogs.bodleian.ox.ac.uk/ssl/wp-content/uploads/sites/136/2016/06/twitter-logo.png" alt="pic2" height="50" width="50"/>
+        </footer>
+
       </div>
     );
   }
