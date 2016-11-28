@@ -201,6 +201,7 @@ export default class App extends Component {
         if (userData.password === false) {
           console.log('invalid password');
         } else {
+          console.log('logged in');
           this.setState({
             login: {
               username: '',
@@ -209,7 +210,6 @@ export default class App extends Component {
             showComponent: true,
             hideComponent: false,
           })
-          console.log('logged in');
           this.handleAjaxGetAll();
         }
       })
