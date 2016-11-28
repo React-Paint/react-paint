@@ -38,5 +38,14 @@ module.exports = {
         next();
       })
       .catch(err => next(err));
-  }
+  },
+  deletePainting(req, res, next) {
+    sqlDB.none(`
+      DELETE FROM canvas
+      WHERE id = $/id/;
+      `, req.params)
+      .then(next())
+      .catch( error => next(error));
+  },
 };
+

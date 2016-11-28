@@ -99,10 +99,25 @@ export default class App extends Component {
           description: canv.description,
           url: canv.url,
           editImg: imgSrc.src.toString(),
-          notification: "HIT CLEAR TO DRAW MORE OR ADD NEW TITLE AND DESCRIPTION AND SAVE AGAIN!!"
+          notification: "HIT CLEAR TO DRAW MORE OR ADD NEW TITLE AND DESCRIPTION AND SAVE AGAIN!!",
         });
       })
       .catch(err => console.log(err));
+  }
+
+  deleteCanvas(id) {
+    fetch(`/paint/${id}`, {
+     method: 'delete'
+   })
+   .then(() => {
+     let drawings = this.state.drawings.filter((mov) => {
+       return mov.id !=id;
+     });
+    this.setState({
+      drawings: drawings
+    });
+   })
+   .catch(err => console.log(err));
   }
 
   updateCanvasIDs(canvas) {
@@ -196,6 +211,7 @@ export default class App extends Component {
         <Gallery
           drawings={this.state.drawings}
           editCanvas={(id) => this.editCanvas(id)}
+          deleteCanvas={(id) => this.deleteCanvas(id)}
         />
       </div>
     );
