@@ -36,6 +36,7 @@ export default class AjaxFunctions {
   }
 
   static signUp(user, pass) {
+    console.log(user,pass);
     return fetch('/users', {
       headers: {
         'Content-Type': 'application/json'
@@ -59,6 +60,7 @@ export default class AjaxFunctions {
         password: pass
       })
     })
+      .then(r => r.json())
   }
 
 }
