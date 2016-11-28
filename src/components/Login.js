@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import style from './LogInForm.css';
+import style from './Login.css';
 
 // create a React Component called _App_
-class LogInForm extends Component {
+class Login extends Component {
 
   render(){
     return (
@@ -27,4 +27,4 @@ class LogInForm extends Component {
   }
 }
 
-export default LogInForm;
+export default Login;
