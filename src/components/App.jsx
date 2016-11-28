@@ -141,6 +141,12 @@ export default class App extends Component {
       bottom: '0px',
       left: '0px',
     };
+    const overlap = {
+      position: 'absolute',
+      left: '10px',
+      top: '100px',
+      zIndex: '-1',
+    };
     return (
       <div>
         <h1>Paint Pals</h1>
@@ -161,7 +167,7 @@ export default class App extends Component {
           updateCanvasIDs={(imgData) => this.updateCanvasIDs(imgData)}
           // handleColorChange={() => this.handleColorChange()}
         />
-        <img src={this.state.editImg} />
+        <img style={overlap} src={this.state.editImg} />
         <input type="range" min="2" max="15" step=".5" onChange={this.lineChange.bind(this)} />
         <div>
           <button onClick={this.handleClick.bind(this)}>Pick Color</button>
