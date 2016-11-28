@@ -7,7 +7,6 @@ import Color from './Color/Color';
 import Publish from './Publish/Publish';
 import DrawCanvas from './DrawCanvas/DrawCanvas';
 import AjaxFunctions from '../helpers/AjaxFunctions';
-import CanvasHelper from '../helpers/CanvasHelper';
 import './App.css';
 
 export default class App extends Component {
@@ -27,6 +26,8 @@ export default class App extends Component {
       drawings: [],
       editImg: "",
       notification:"",
+      showComponent: false,
+      hideComponent: true,
       signup: {
         username: '',
         password: '',
@@ -203,8 +204,11 @@ export default class App extends Component {
       }
     }))
     .then(this.alertInfo(`You have logged in as ${username}`))
+    .then(this.setState({
+      showComponent: true,
+      hideComponent: false,
+    }))
     .catch(err => console.log(err));
-
     this.handleAjaxGetAll();
   }
 
@@ -236,21 +240,23 @@ export default class App extends Component {
     return (
       <div>
         <h1>Paint Pals</h1>
-        <SignUp
-          signUpUsername={this.state.signup.username}
-          signUpPassword={this.state.signup.password}
-          updateFormUsername={event => this.updateFormSignUpUsername(event)}
-          updateFormPassword={event => this.updateFormSignUpPassword(event)}
-          handleFormSubmit={() => this.handleSignUp()}
-        />
-        <Login
-          className={this.state.login.loggedIn ? 'hidden' : ''}
-          logInUsername={this.state.login.username}
-          logInPassword={this.state.login.password}
-          updateFormUsername={event => this.updateFormLogInUsername(event)}
-          updateFormPassword={event => this.updateFormLogInPassword(event)}
-          handleFormSubmit={() => this.handleLogIn()}
-        />
+        {this.state.hideComponent ? <div>
+          <SignUp
+            signUpUsername={this.state.signup.username}
+            signUpPassword={this.state.signup.password}
+            updateFormUsername={event => this.updateFormSignUpUsername(event)}
+            updateFormPassword={event => this.updateFormSignUpPassword(event)}
+            handleFormSubmit={() => this.handleSignUp()}
+          />
+          <Login
+            className={this.state.login.loggedIn ? 'hidden' : ''}
+            logInUsername={this.state.login.username}
+            logInPassword={this.state.login.password}
+            updateFormUsername={event => this.updateFormLogInUsername(event)}
+            updateFormPassword={event => this.updateFormLogInPassword(event)}
+            handleFormSubmit={() => this.handleLogIn()}
+          />
+        </div>: null}
         <Form
           updateUrl={(e) => this.updateUrl(e)}
           searchUrl={this.searchUrl.bind(this)}
@@ -268,7 +274,7 @@ export default class App extends Component {
           updateCanvasIDs={(imgData) => this.updateCanvasIDs(imgData)}
         />
         <img style={overlap} src={this.state.editImg} />
-        <h1 style= {noteColor}>{this.state.notification}</h1>
+        <h1 style={noteColor}>{this.state.notification}</h1>
         <input type="range" min="2" max="15" step=".5" onChange={this.lineChange.bind(this)} />
         <button onClick={() => this.clickClear()}>clear</button>
         <Color
@@ -278,19 +284,20 @@ export default class App extends Component {
           color={this.state.color}
           handleChangeComplete={this.handleChangeComplete.bind(this)}
         />
-        <Publish
-          title={this.state.title}
-          description={this.state.description}
-          handleTitleChange={(e) => this.handleTitleChange(e)}
-          handleDescriptionChange={(e) => this.handleDescriptionChange(e)}
-          publishDrawing={this.publishDrawing.bind(this)}
-        />
-
-        <Gallery
-          drawings={this.state.drawings}
-          editCanvas={(id) => this.editCanvas(id)}
-          deleteCanvas={(id) => this.deleteCanvas(id)}
-        />
+        {this.state.showComponent ? <div>
+          <Publish
+            title={this.state.title}
+            description={this.state.description}
+            handleTitleChange={(e) => this.handleTitleChange(e)}
+            handleDescriptionChange={(e) => this.handleDescriptionChange(e)}
+            publishDrawing={this.publishDrawing.bind(this)}
+          />
+          <Gallery
+            drawings={this.state.drawings}
+            editCanvas={(id) => this.editCanvas(id)}
+            deleteCanvas={(id) => this.deleteCanvas(id)}
+          />
+        </div>: null}
       </div>
     );
   }
