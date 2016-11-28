@@ -10,7 +10,6 @@
   "scripts": {
     "clean": "rm -rf dist && rm -rf node_modules",
     "heroku-prebuild": "run clean -s; i --only=dev --ignore-scripts; webpack -p; rm -rf node_modules",
-    "heroku-postbuild": "rm -rfs db src scripts starter_resources lessons webpack.config.js .babelrc .gitignore README.md",
     "start": "node server.js",
     "rebuild": "webpack -d --progress --colors",
     "watch": "webpack -d --progress --watch"
