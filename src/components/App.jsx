@@ -1,7 +1,11 @@
 import React, { Component } from 'react';
-import SketchPicker from 'react-color';
-import Form from './Form.jsx';
-import DrawCanvas from './DrawCanvas';
+import Form from './Form/Form.jsx';
+import Gallery from './Gallery/Gallery';
+import Color from './Color/Color';
+import Publish from './Publish/Publish';
+import DrawCanvas from './DrawCanvas/DrawCanvas';
+import AjaxFunctions from '../helpers/AjaxFunctions';
+import CanvasHelper from '../helpers/CanvasHelper';
 import './App.css';
 
 export default class App extends Component {
@@ -12,56 +16,148 @@ export default class App extends Component {
       color: 'rgba(0,0,0,1)',
       url: "http://htmlcolorcodes.com/assets/images/html-color-codes-color-tutorials-hero-00e10b1f.jpg",
       holderUrl: "",
-      canvasContent: [],
+      title: "",
+      description: "",
       imgData: {},
       clear: false,
+      line: 4,
+      displayColorPicker: false,
+      drawings: [],
+      editImg: "",
+      notification:"",
     };
   }
 
-  handleChangeComplete(draw) {
-    console.log(draw.rgb)
-    this.setState({
-      color: draw.hex,
-      // color: rgba(draw.rgb.r,draw.rgb.g,draw.rgb.b,draw.rgb.a),
-    });
+  componentDidMount() {
+    AjaxFunctions.getDrawings()
+      .then(drawings => {
+        this.setState({
+          drawings,
+        });
+      })
+      .catch(err => console.log(err));
   }
 
+  handleChangeComplete(draw) {
+    this.setState({
+      color: `rgba(${draw.rgb.r}, ${draw.rgb.g}, ${draw.rgb.b}, ${draw.rgb.a})`,
+    });
+  }
   clickClear() {
     this.setState({
       clear: true,
+      editImg: "",
+      notification: "",
     });
   }
-
   unClear() {
     this.setState({
       clear: false,
     });
   }
-
   updateUrl(e) {
     this.setState({
       holderUrl: e.target.value,
     });
   }
-
-    searchUrl() {
-      this.setState({
-        url: this.state.holderUrl,
-      });
-    }
-  updateCanvasIDs(imgData) {
+  lineChange(e) {
     this.setState({
-      imgData
+      line: e.target.value,
     });
-    console.log(imgData.data);
+  }
+  searchUrl() {
+    this.setState({
+      url: this.state.holderUrl,
+    });
+  }
+
+  publishDrawing() {
+    const canvasData = {
+      title: this.state.title,
+      description: this.state.description,
+      drawing: this.state.imgData.canvas.toDataURL('png'),
+      url: this.state.url,
+    };
+    AjaxFunctions.addDrawing(canvasData)
+      .then(drawing => {
+        const newState = {...this.state.drawings};
+        newState[drawing.id] = drawing;
+
+        this.setState({
+          drawings: newState,
+          notification: "",
+        });
+      })
+      .catch(err => console.log(err));
+  }
+
+  editCanvas(id) {
+    const imgSrc = AjaxFunctions.getImage(id);
+    AjaxFunctions.getDrawing(id)
+      .then((canv) => {
+        this.setState({
+          title: canv.title,
+          description: canv.description,
+          url: canv.url,
+          editImg: imgSrc.src.toString(),
+          notification: "HIT CLEAR TO DRAW MORE OR ADD NEW TITLE AND DESCRIPTION AND SAVE AGAIN!!",
+        });
+      })
+      .catch(err => console.log(err));
+  }
+
+  deleteCanvas(id) {
+    fetch(`/paint/${id}`, {
+     method: 'delete'
+   })
+   .then(() => {
+     let drawings = this.state.drawings.filter((mov) => {
+       return mov.id !=id;
+     });
+    this.setState({
+      drawings: drawings
+    });
+   })
+   .catch(err => console.log(err));
+  }
+
+  updateCanvasIDs(canvas) {
+    this.setState({
+      imgData: canvas,
+    });
+  }
+  handleClick() {
+    this.setState({ displayColorPicker: !this.state.displayColorPicker });
+  }
+  handleClose() {
+    this.setState({ displayColorPicker: false });
+  }
+
+  handleTitleChange(e) {
+    this.setState({
+      title: e.target.value,
+    });
+  }
+  handleDescriptionChange(e) {
+    this.setState({
+      description: e.target.value,
+    });
   }
 
   render() {
     const banana = this.state.url;
 // Banana is attributed to trevor!!!!! the "this" in this.state.url was not recognized in background
+    const overlap = {
+      position: 'absolute',
+      left: '10px',
+      top: '100px',
+    };
+    const noteColor = {
+      color: 'red',
+    };
     return (
       <div>
-        <h1>Canvas Demo</h1>
+        <h1>Paint Pals</h1>
         <Form
           updateUrl={(e) => this.updateUrl(e)}
           searchUrl={this.searchUrl.bind(this)}
@@ -69,21 +165,39 @@ export default class App extends Component {
         />
         <DrawCanvas
           brushColor={this.state.color}
-          lineWidth={4}
+          lineWidth={this.state.line}
           canvasStyle={{
-            background: 'url('+banana+')',
+            background: 'url(' + banana + ')',
             cursor: 'pointer',
           }}
           clear={this.state.clear}
           unclear={this.unClear.bind(this)}
           updateCanvasIDs={(imgData) => this.updateCanvasIDs(imgData)}
-          // handleColorChange={() => this.handleColorChange()}
         />
-       <SketchPicker
-         color={this.state.color}
-         onChangeComplete={this.handleChangeComplete.bind(this)}
-       />
+        <img style={overlap} src={this.state.editImg} />
+        <h1 style= {noteColor}>{this.state.notification}</h1>
+        <input type="range" min="2" max="15" step=".5" onChange={this.lineChange.bind(this)} />
         <button onClick={() => this.clickClear()}>clear</button>
+        <Color
+          handleClick={this.handleClick.bind(this)}
+          displayColorPicker={this.state.displayColorPicker}
+          handleClose={this.handleClose.bind(this)}
+          color={this.state.color}
+          handleChangeComplete={this.handleChangeComplete.bind(this)}
+        />
+        <Publish
+          title={this.state.title}
+          description={this.state.description}
+          handleTitleChange={(e) => this.handleTitleChange(e)}
+          handleDescriptionChange={(e) => this.handleDescriptionChange(e)}
+          publishDrawing={this.publishDrawing.bind(this)}
+        />
+
+        <Gallery
+          drawings={this.state.drawings}
+          editCanvas={(id) => this.editCanvas(id)}
+          deleteCanvas={(id) => this.deleteCanvas(id)}
+        />
       </div>
     );
   }
