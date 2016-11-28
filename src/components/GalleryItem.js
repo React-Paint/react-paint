@@ -20,6 +20,7 @@ export default class GalleryItem extends Component {
           <img src={this.props.canvas} alt={this.props.title} id={this.props.id} />
         </div>
         <button onClick={this.props.editCanvas}>Edit</button>
+        <button onClick={this.props.deleteCanvas}>Delete</button>
       </div>
     );
   }

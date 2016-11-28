@@ -14,6 +14,7 @@ export default class Gallery extends Component {
           URL={this.props.drawings[canvID].url}
           id={`canvas${this.props.drawings[canvID].id}`}
           editCanvas={() => this.props.editCanvas(this.props.drawings[canvID].id)}
+          deleteCanvas={() => this.props.deleteCanvas(this.props.drawings[canvID].id)}
         />
     ));
     return (
