@@ -6,11 +6,11 @@ const sendStatus = (req, res) => res.status(200).end();
 
 paint.route('/:id')
   .get(db.getDrawing, sendJSONResp)
-// .delete(db.deletePainting, sendJSONresp);
+  .delete(db.deletePainting, sendStatus);
 
 paint.route('/')
   .get(db.getDrawings, sendJSONResp)
-  .post(db.addDrawing, sendJSONResp)
+  .post(db.addDrawing, sendJSONResp);
 
 //
 // paint.route('/:ID/edit')

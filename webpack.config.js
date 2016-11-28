@@ -23,7 +23,7 @@ module.exports = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      title: 'Movie Part 3',
+      title: 'REACT PAINT!',
       xhtml: true,
       inject: false,
       template: require('html-webpack-template'),

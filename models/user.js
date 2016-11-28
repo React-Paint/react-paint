@@ -1,14 +1,28 @@
-const db = require('./dbConnect');
+const { sqlDB } = require('./dbConnect');
+
+function createUser(req, res, next) {
+  sqlDB.none(`
+    INSERT INTO users
+      (username, password)
+    VALUES ($1, $2);
+    `, [req.body.username, req.body.password])
+    .then(next())
+    .catch((err) => {
+      console.log(err);
+      next(err);
+    });
+}
+
+function findByUsername(username) {
+  return sqlDB.one(`
+    SELECT * FROM
+      users
+    WHERE
+      username = $1
+  `, [username]);
+}
 
 module.exports = {
-  getAllUsers(req, res, next) {
-    db.any(`
-      SELECT * from users;
-    `)
-      .then((user) => {
-        res.rows = user;
-        next();
-      })
-      .catch(error => next(error));
-  },
+  createUser,
+  findByUsername
 };

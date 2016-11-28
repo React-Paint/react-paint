@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
-import SketchPicker from 'react-color';
-import Form from './Form.jsx';
-import Gallery from './Gallery';
-import DrawCanvas from './DrawCanvas';
+import SignUp from './SignUp/SignUp.js';
+import Login from './Login/Login.js';
+import Form from './Form/Form.jsx';
+import Gallery from './Gallery/Gallery';
+import Color from './Color/Color';
+import Publish from './Publish/Publish';
+import DrawCanvas from './DrawCanvas/DrawCanvas';
 import AjaxFunctions from '../helpers/AjaxFunctions';
 import CanvasHelper from '../helpers/CanvasHelper';
 import './App.css';
@@ -18,33 +21,34 @@ export default class App extends Component {
       title: "",
       description: "",
       imgData: {},
-      back: [],
       clear: false,
       line: 4,
       displayColorPicker: false,
       drawings: [],
+      editImg: "",
+      notification:"",
+      signup: {
+        username: '',
+        password: '',
+      },
+      login: {
+        loggedIn: false,
+        username: '',
+        password: '',
+      },
     };
-  }
-
-  componentDidMount() {
-    AjaxFunctions.getDrawings()
-      .then(drawings => {
-        this.setState({
-          drawings,
-        })
-      })
-      .catch(err => console.log(err))
   }
 
   handleChangeComplete(draw) {
     this.setState({
-      // color: 'rgba(' + draw.rgb.r + ',' + draw.rgb.g + ',' + draw.rgb.b + ', ' + draw.rgb.a + ')',
       color: `rgba(${draw.rgb.r}, ${draw.rgb.g}, ${draw.rgb.b}, ${draw.rgb.a})`,
     });
   }
   clickClear() {
     this.setState({
       clear: true,
+      editImg: "",
+      notification: "",
     });
   }
   unClear() {
@@ -73,31 +77,44 @@ export default class App extends Component {
       title: this.state.title,
       description: this.state.description,
       drawing: this.state.imgData.canvas.toDataURL('png'),
-    }
+      url: this.state.url,
+    };
     AjaxFunctions.addDrawing(canvasData)
       .then(drawing => {
         const newState = {...this.state.drawings};
-        console.log(newState);
-        console.log(Object.keys(newState));
         newState[drawing.id] = drawing;
+
         this.setState({
-          drawings: newState
-        })
+          drawings: newState,
+          notification: "",
+        });
       })
       .catch(err => console.log(err));
   }
 
   editCanvas(id) {
-    let imgSrc = AjaxFunctions.getImage(id);
+    const imgSrc = AjaxFunctions.getImage(id);
     AjaxFunctions.getDrawing(id)
       .then((canv) => {
         this.setState({
           title: canv.title,
           description: canv.description,
-          url: imgSrc.src.toString()
-        })
+          url: canv.url,
+          editImg: imgSrc.src.toString(),
+          notification: "HIT CLEAR TO DRAW MORE OR ADD NEW TITLE AND DESCRIPTION AND SAVE AGAIN!!",
+        });
       })
-      .catch(err => console.log(err))
+      .catch(err => console.log(err));
+  }
+
+  deleteCanvas(id) {
+    AjaxFunctions.deleteDrawing(id)
+     .then(() => {
+       console.log(`deleted entry ${id}`);
+     })
+     .catch(err => console.log(err));
+
+     this.handleAjaxGetAll()
   }
 
   updateCanvasIDs(canvas) {
@@ -114,32 +131,126 @@ export default class App extends Component {
 
   handleTitleChange(e) {
     this.setState({
-      title: e.target.value
-    })
+      title: e.target.value,
+    });
   }
   handleDescriptionChange(e) {
     this.setState({
-      description: e.target.value
-    })
+      description: e.target.value,
+    });
+  }
+
+  updateFormSignUpUsername(e) {
+    this.setState({
+      signup: {
+        username: e.target.value,
+        password: this.state.signup.password
+      }
+    });
+  }
+
+  updateFormSignUpPassword(e) {
+    this.setState({
+      signup: {
+        username: this.state.signup.username,
+        password: e.target.value
+      }
+    });
+  }
+
+  updateFormLogInUsername(e) {
+    this.setState({
+      login: {
+        username: e.target.value,
+        password: this.state.login.password
+      }
+    });
+  }
+
+  updateFormLogInPassword(e) {
+    this.setState({
+      login: {
+        username: this.state.login.username,
+        password: e.target.value
+      }
+    });
+  }
+
+  handleSignUp() {
+    let username = this.state.login.username;
+    let password = this.state.login.password;
+
+    AjaxFunctions.signUp(username, password)
+    .then(this.setState({
+      signup: {
+        username: '',
+        password: ''
+      }
+    }))
+    .then(this.alertInfo('You have signed up!'))
+    .catch(err => console.log(err));
+  }
+
+  handleLogIn() {
+    let username = this.state.login.username;
+    let password = this.state.login.password;
+
+    AjaxFunctions.logIn(username, password)
+    .then(this.setState({
+      login: {
+        username: '',
+        password: ''
+      }
+    }))
+    .then(this.alertInfo(`You have logged in as ${username}`))
+    .catch(err => console.log(err));
+
+    this.handleAjaxGetAll();
+  }
+
+  handleAjaxGetAll() {
+    AjaxFunctions.getDrawings()
+      .then(drawings => {
+        this.setState({
+          drawings,
+        });
+      })
+      .catch(err => console.log(err));
+  }
+
+  alertInfo(msg) {
+    alert(msg);
   }
 
   render() {
     const banana = this.state.url;
 // Banana is attributed to trevor!!!!! the "this" in this.state.url was not recognized in background
-    const popover = {
+    const overlap = {
       position: 'absolute',
-      zIndex: '2',
+      left: '10px',
+      top: '100px',
     };
-    const cover = {
-      position: 'fixed',
-      top: '0px',
-      right: '0px',
-      bottom: '0px',
-      left: '0px',
+    const noteColor = {
+      color: 'red',
     };
     return (
       <div>
         <h1>Paint Pals</h1>
+        <SignUp
+          signUpUsername={this.state.signup.username}
+          signUpPassword={this.state.signup.password}
+          updateFormUsername={event => this.updateFormSignUpUsername(event)}
+          updateFormPassword={event => this.updateFormSignUpPassword(event)}
+          handleFormSubmit={() => this.handleSignUp()}
+        />
+        <Login
+          className={this.state.login.loggedIn ? 'hidden' : ''}
+          logInUsername={this.state.login.username}
+          logInPassword={this.state.login.password}
+          updateFormUsername={event => this.updateFormLogInUsername(event)}
+          updateFormPassword={event => this.updateFormLogInPassword(event)}
+          handleFormSubmit={() => this.handleLogIn()}
+        />
         <Form
           updateUrl={(e) => this.updateUrl(e)}
           searchUrl={this.searchUrl.bind(this)}
@@ -149,38 +260,36 @@ export default class App extends Component {
           brushColor={this.state.color}
           lineWidth={this.state.line}
           canvasStyle={{
-            background: 'url('+banana+')',
+            background: 'url(' + banana + ')',
             cursor: 'pointer',
           }}
           clear={this.state.clear}
           unclear={this.unClear.bind(this)}
           updateCanvasIDs={(imgData) => this.updateCanvasIDs(imgData)}
-          // handleColorChange={() => this.handleColorChange()}
         />
+        <img style={overlap} src={this.state.editImg} />
+        <h1 style= {noteColor}>{this.state.notification}</h1>
         <input type="range" min="2" max="15" step=".5" onChange={this.lineChange.bind(this)} />
-        <div>
-          <button onClick={this.handleClick.bind(this)}>Pick Color</button>
-          { this.state.displayColorPicker ? <div style={popover}>
-            <div style={cover} onClick={this.handleClose.bind(this)} />
-            <SketchPicker
-              color={this.state.color}
-              onChangeComplete={this.handleChangeComplete.bind(this)}
-            />
-          </div> : null }
-        </div>
         <button onClick={() => this.clickClear()}>clear</button>
-
-        <div className="publish-div">
-          <input type="text" value={this.state.title} onChange={(e) => this.handleTitleChange(e)}/>
-          <textarea value={this.state.description} onChange={(e) => this.handleDescriptionChange(e)}>
-            Enter a description
-          </textarea>
-          <button onClick={() => this.publishDrawing()}>Publish</button>
-        </div>
+        <Color
+          handleClick={this.handleClick.bind(this)}
+          displayColorPicker={this.state.displayColorPicker}
+          handleClose={this.handleClose.bind(this)}
+          color={this.state.color}
+          handleChangeComplete={this.handleChangeComplete.bind(this)}
+        />
+        <Publish
+          title={this.state.title}
+          description={this.state.description}
+          handleTitleChange={(e) => this.handleTitleChange(e)}
+          handleDescriptionChange={(e) => this.handleDescriptionChange(e)}
+          publishDrawing={this.publishDrawing.bind(this)}
+        />
 
         <Gallery
           drawings={this.state.drawings}
           editCanvas={(id) => this.editCanvas(id)}
+          deleteCanvas={(id) => this.deleteCanvas(id)}
         />
       </div>
     );
