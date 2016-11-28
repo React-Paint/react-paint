@@ -4,8 +4,9 @@ import Gallery from './Gallery/Gallery';
 import Color from './Color/Color';
 import Publish from './Publish/Publish';
 import DrawCanvas from './DrawCanvas/DrawCanvas';
-import AjaxFunctions from '../helpers/AjaxFunctions';
-import CanvasHelper from '../helpers/CanvasHelper';
+// import AjaxFunctions from '../helpers/AjaxFunctions';
+// import CanvasHelper from '../helpers/CanvasHelper';
+import DrawLogo from './DrawLogo/DrawLogo.js';
 import './App.css';
 
 export default class App extends Component {
@@ -35,7 +36,7 @@ export default class App extends Component {
           drawings,
         });
       })
-      .catch(err => console.log(err));
+      // .catch(err => console.log(err));
   }
 
   handleChangeComplete(draw) {
@@ -78,7 +79,7 @@ export default class App extends Component {
       drawing: this.state.imgData.canvas.toDataURL('png'),
       url: this.state.url,
     };
-    AjaxFunctions.addDrawing(canvasData)
+      AjaxFunctions.addDrawing(canvasData)
       .then(drawing => {
         const newState = {...this.state.drawings};
         newState[drawing.id] = drawing;
@@ -157,6 +158,11 @@ export default class App extends Component {
     };
     return (
       <div>
+        <DrawLogo/>
+
+            <button className="buttonStyle" type="button">Sign Up</button>
+            <button className="buttonStyle" type="button">Log In</button>
+
         <h1>Paint Pals</h1>
         <Form
           updateUrl={(e) => this.updateUrl(e)}

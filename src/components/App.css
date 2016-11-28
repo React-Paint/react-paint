@@ -2,3 +2,32 @@
   width: 6000px;
   height: 400px;
 }
+
+
+/*.App-nav {
+  float:right;
+  width: ;
+  height:20%;
+}*/
+
+/*button {
+    background: linear-gradient(to bottom, #DD5A5A, #B22222 );
+    border: none;
+    color: white;
+    padding: 10px 32px;
+    border-radius: 5px;
+    text-align: center;
+    text-decoration: none;
+    height: 45px;
+    width: 130px;
+    font-size: 16px;
+    margin-top: 30px;
+    margin-right: 8px;
+    cursor: pointer;
+    box-shadow: 1px 1px 1px #F5F5F5;
+}
+*/
+
+h1 {
+  color:red;
+}
