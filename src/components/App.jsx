@@ -201,23 +201,21 @@ export default class App extends Component {
         if (userData.password === false) {
           console.log('invalid password');
         } else {
+          console.log('logged in');
           this.setState({
             login: {
               username: '',
               password: ''
-            }
+            },
+            showComponent: true,
+            hideComponent: false,
           })
-          console.log('logged in');
+          this.handleAjaxGetAll();
         }
       })
       // setup a display hello message
-      .then(this.setState({
-        showComponent: true,
-        hideComponent: false,
-      }))
       .catch(err => console.log(err));
 
-      this.handleAjaxGetAll();
   }
 
   handleAjaxGetAll() {
