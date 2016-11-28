@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-import Form from './Form.jsx';
-import Gallery from './Gallery';
-import Color from './Color';
-import Publish from './Publish';
-import DrawCanvas from './DrawCanvas';
-import SignUp from './SignUp.js';
-import Login from './Login.js';
+import SignUp from './SignUp/SignUp.js';
+import Login from './Login/Login.js';
+import Form from './Form/Form.jsx';
+import Gallery from './Gallery/Gallery';
+import Color from './Color/Color';
+import Publish from './Publish/Publish';
+import DrawCanvas from './DrawCanvas/DrawCanvas';
 import AjaxFunctions from '../helpers/AjaxFunctions';
 import CanvasHelper from '../helpers/CanvasHelper';
 import './App.css';
