@@ -210,16 +210,12 @@ export default class App extends Component {
             hideComponent: false,
           })
           console.log('logged in');
+          this.handleAjaxGetAll();
         }
       })
       // setup a display hello message
-      // .then(this.setState({
-      //   showComponent: true,
-      //   hideComponent: false,
-      // }))
       .catch(err => console.log(err));
 
-      this.handleAjaxGetAll();
   }
 
   handleAjaxGetAll() {
