@@ -49,6 +49,11 @@ main {
 .dontHitBottom {
   margin-bottom: 40px
 }
+.notify{
+  position: fixed;
+  top: 80px;
+  font-size: 20px;
+}
 footer {
   position: fixed;
   bottom: 0;
