@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-// import SketchPicker from 'react-color';
 import Form from './Form.jsx';
 import Gallery from './Gallery';
 import Color from './Color';
+import Publish from './Publish';
 import DrawCanvas from './DrawCanvas';
 import AjaxFunctions from '../helpers/AjaxFunctions';
 import CanvasHelper from '../helpers/CanvasHelper';
@@ -185,13 +185,13 @@ export default class App extends Component {
           color={this.state.color}
           handleChangeComplete={this.handleChangeComplete.bind(this)}
         />
-        <div className="publish-div">
-          <input type="text" value={this.state.title} onChange={(e) => this.handleTitleChange(e)}/>
-          <textarea value={this.state.description} onChange={(e) => this.handleDescriptionChange(e)}>
-            Enter a description
-          </textarea>
-          <button onClick={() => this.publishDrawing()}>Publish</button>
-        </div>
+        <Publish
+          title={this.state.title}
+          description={this.state.description}
+          handleTitleChange={(e) => this.handleTitleChange(e)}
+          handleDescriptionChange={(e) => this.handleDescriptionChange(e)}
+          publishDrawing={this.publishDrawing.bind(this)}
+        />
 
         <Gallery
           drawings={this.state.drawings}
