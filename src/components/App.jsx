@@ -107,18 +107,19 @@ export default class App extends Component {
   }
 
   deleteCanvas(id) {
-    fetch(`/paint/${id}`, {
-     method: 'delete'
-   })
-   .then(() => {
-     let drawings = this.state.drawings.filter((mov) => {
-       return mov.id !=id;
-     });
-    this.setState({
-      drawings: drawings
-    });
-   })
-   .catch(err => console.log(err));
+    AjaxFunctions.deleteDrawing(id)
+     .then(() => {
+       console.log(`deleted entry ${id}`);
+     })
+     .catch(err => console.log(err));
+
+     AjaxFunctions.getDrawings()
+       .then(drawings => {
+         this.setState({
+           drawings,
+         });
+       })
+       .catch(err => console.log(err));
   }
 
   updateCanvasIDs(canvas) {

@@ -27,17 +27,8 @@ export default class AjaxFunctions {
 
   static deleteDrawing(id) {
     return fetch(`/paint/${id}`, {
-     method: 'delete'
-    })
-    .then(() => {
-      let drawings = this.state.drawings.filter((mov) => {
-        return mov.id !=id;
-    });
-    this.setState({
-      drawings: drawings
-    });
+     method: 'DELETE'
    })
-   .catch(err => console.log(err));
   }
 
   static getImage(id) {
