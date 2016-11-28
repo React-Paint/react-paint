@@ -1,10 +1,10 @@
 const express = require('express');
 const router = express.Router();
-const { createUser } = require('../models/user');
+const db = require('../models/user');
 
 // handle all the routes
 
-router.post('/', createUser, (req, res) => {
+router.post('/', db.createUser, (req, res) => {
   res.status(200).end();
 });
 
