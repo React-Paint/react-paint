@@ -1,4 +1,44 @@
+* {
+  margin: 0;
+  padding: 0;
+}
 .ctx {
   width: 6000px;
   height: 400px;
 }
+
+footer {
+  position: center;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  bottom: 0;
+  padding: 1rem;
+  text-align: center;
+  background: linear-gradient(to bottom right, white, blue);
+}
+/*.App-nav {
+  float:right;
+  width: ;
+  height:20%;
+}*/
+
+/*button {
+    background: linear-gradient(to bottom, #DD5A5A, #B22222 );
+    border: none;
+    color: white;
+    padding: 10px 32px;
+    border-radius: 5px;
+    text-align: center;
+    text-decoration: none;
+    height: 45px;
+    width: 130px;
+    font-size: 16px;
+    margin-top: 30px;
+    margin-right: 8px;
+    cursor: pointer;
+    box-shadow: 1px 1px 1px #F5F5F5;
+}
+*/
+
+
