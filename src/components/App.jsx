@@ -115,7 +115,7 @@ export default class App extends Component {
      })
      .catch(err => console.log(err));
 
-     this.handleAjaxGetAll()
+    this.handleAjaxGetAll();
   }
 
   updateCanvasIDs(canvas) {
@@ -145,8 +145,8 @@ export default class App extends Component {
     this.setState({
       signup: {
         username: e.target.value,
-        password: this.state.signup.password
-      }
+        password: this.state.signup.password,
+      },
     });
   }
 
@@ -154,8 +154,8 @@ export default class App extends Component {
     this.setState({
       signup: {
         username: this.state.signup.username,
-        password: e.target.value
-      }
+        password: e.target.value,
+      },
     });
   }
 
@@ -163,8 +163,8 @@ export default class App extends Component {
     this.setState({
       login: {
         username: e.target.value,
-        password: this.state.login.password
-      }
+        password: this.state.login.password,
+      },
     });
   }
 
@@ -172,8 +172,8 @@ export default class App extends Component {
     this.setState({
       login: {
         username: this.state.login.username,
-        password: e.target.value
-      }
+        password: e.target.value,
+      },
     });
   }
 
@@ -185,8 +185,8 @@ export default class App extends Component {
     .then(this.setState({
       signup: {
         username: '',
-        password: ''
-      }
+        password: '',
+      },
     }))
     .then(this.alertInfo('You have signed up! Login to continue'))
     .catch(err => console.log(err));
@@ -203,6 +203,7 @@ export default class App extends Component {
             notification: 'INVALID USERNAME AND PASSWORD COMBINATION',
           });
         } else {
+          console.log('logged in');
           this.setState({
             login: {
               username: '',
@@ -212,13 +213,11 @@ export default class App extends Component {
             hideComponent: false,
             notification: '',
           });
-          console.log('logged in');
           this.handleAjaxGetAll();
         }
       })
       // setup a display hello message
       .catch(err => console.log(err));
-
   }
 
   handleAjaxGetAll() {
