@@ -89,8 +89,6 @@ export default class App extends Component {
 
   editCanvas(id) {
     const imgSrc = AjaxFunctions.getImage(id);
-    // const imgData = this.state.imgData;
-    // imgData.canvas = imgSrc.src.toString();
     AjaxFunctions.getDrawing(id)
       .then((canv) => {
         this.setState({
@@ -98,7 +96,6 @@ export default class App extends Component {
           description: canv.description,
           url: canv.url,
           editImg: imgSrc.src.toString(),
-          // imgData,
         });
       })
       .catch(err => console.log(err));
@@ -145,7 +142,6 @@ export default class App extends Component {
       position: 'absolute',
       left: '10px',
       top: '100px',
-      zIndex: '-1',
     };
     return (
       <div>
