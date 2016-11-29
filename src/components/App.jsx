@@ -7,6 +7,9 @@ import Color from './Color/Color';
 import Publish from './Publish/Publish';
 import DrawCanvas from './DrawCanvas/DrawCanvas';
 import AjaxFunctions from '../helpers/AjaxFunctions';
+import CanvasHelper from '../helpers/CanvasHelper';
+import DrawLogo from './DrawLogo/DrawLogo.js';
+
 import './App.css';
 
 export default class App extends Component {
@@ -80,7 +83,7 @@ export default class App extends Component {
       drawing: this.state.imgData.canvas.toDataURL('png'),
       url: this.state.url,
     };
-    AjaxFunctions.addDrawing(canvasData)
+      AjaxFunctions.addDrawing(canvasData)
       .then(drawing => {
         const newState = {...this.state.drawings};
         newState[drawing.id] = drawing;
@@ -245,7 +248,7 @@ export default class App extends Component {
     };
     return (
       <div>
-        <h1>Paint Pals</h1>
+        <DrawLogo />
         {this.state.hideComponent ? <div>
           <SignUp
             signUpUsername={this.state.signup.username}
@@ -262,7 +265,7 @@ export default class App extends Component {
             updateFormPassword={event => this.updateFormLogInPassword(event)}
             handleFormSubmit={() => this.handleLogIn()}
           />
-        </div>: null}
+        </div> : null}
         <Form
           updateUrl={(e) => this.updateUrl(e)}
           searchUrl={this.searchUrl.bind(this)}
@@ -306,10 +309,12 @@ export default class App extends Component {
             deleteCanvas={(id) => this.deleteCanvas(id)}
           />
         </div>: null}
+
         <footer className="footer">
           <img src="https://www.seeklogo.net/wp-content/uploads/2013/11/facebook-flat-vector-logo-400x400.png" alt="pic" height="50" width="50"/>
           <img src="http://blogs.bodleian.ox.ac.uk/ssl/wp-content/uploads/sites/136/2016/06/twitter-logo.png" alt="pic2" height="50" width="50"/>
         </footer>
+
       </div>
 
     );

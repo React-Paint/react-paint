@@ -1,3 +1,7 @@
+* {
+  margin: 0;
+  padding: 0;
+}
 .ctx {
   width: 6000px;
   height: 400px;
@@ -13,5 +17,3 @@ footer {
   text-align: center;
   background: linear-gradient(to bottom right, white, blue);
 }
-
-
