@@ -11,7 +11,8 @@ CREATE TABLE canvas (
   title         VARCHAR NOT NULL,
   description   TEXT,
   drawing       TEXT,
-  url           TEXT
+  url           TEXT,
+  username      VARCHAR
 );
 
 CREATE TABLE users (

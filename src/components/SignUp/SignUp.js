@@ -12,17 +12,19 @@ class SignUp extends Component {
               </div> : null }
               { this.props.displaySignup ? <div>
                 <div onClick={this.props.handleClose} />
-                <input
+                <input className="reSize"
               type="text"
               placeholder="username"
               value={this.props.signUpUsername}
               onChange={this.props.updateFormUsername}
+
             />
-            <input
+            <input className="reSize"
               type="password"
               placeholder="password"
               value={this.props.signUpPassword}
               onChange={this.props.updateFormPassword}
+
             />
             <button onClick={this.props.handleFormSubmit}>
               SignUp!

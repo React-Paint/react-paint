@@ -5,6 +5,7 @@ import Form from './Form/Form.jsx';
 import Gallery from './Gallery/Gallery';
 import Color from './Color/Color';
 import Publish from './Publish/Publish';
+import Logout from './Logout/Logout';
 import DrawCanvas from './DrawCanvas/DrawCanvas';
 import AjaxFunctions from '../helpers/AjaxFunctions';
 import CanvasHelper from '../helpers/CanvasHelper';
@@ -22,6 +23,7 @@ export default class App extends Component {
       title: "",
       description: "",
       imgData: {},
+      imgCoords: {},
       clear: false,
       line: 4,
       displayColorPicker: false,
@@ -29,6 +31,7 @@ export default class App extends Component {
       displaySignup: false,
       hideLogin: true,
       hideSignup: true,
+      displaylogout: false,
       drawings: [],
       editImg: "",
       notification:"",
@@ -80,11 +83,14 @@ export default class App extends Component {
   }
 
   publishDrawing() {
+    console.log(this.state.login.username);
     const canvasData = {
       title: this.state.title,
       description: this.state.description,
       drawing: this.state.imgData.canvas.toDataURL('png'),
       url: this.state.url,
+      username: this.state.login.username
+
     };
       AjaxFunctions.addDrawing(canvasData)
       .then(drawing => {
@@ -101,14 +107,18 @@ export default class App extends Component {
 
   editCanvas(id) {
     const imgSrc = AjaxFunctions.getImage(id);
+
+    let canvCoords = CanvasHelper.getCoords();
+
     AjaxFunctions.getDrawing(id)
       .then((canv) => {
         this.setState({
+          imgCoords: canvCoords,
           title: canv.title,
           description: canv.description,
           url: canv.url,
           editImg: imgSrc.src.toString(),
-          notification: "HIT CLEAR TO DRAW MORE OR ADD NEW TITLE AND DESCRIPTION AND SAVE AGAIN!!",
+          notification: "HIT CLEAR TO DRAW MORE OR ADD NEW TITLE, DESCRIPTION, OR BACKGROUND AND SAVE AGAIN!!",
         });
       })
       .catch(err => console.log(err));
@@ -146,7 +156,6 @@ export default class App extends Component {
       description: e.target.value,
     });
   }
-
   updateFormSignUpUsername(e) {
     this.setState({
       signup: {
@@ -155,7 +164,6 @@ export default class App extends Component {
       },
     });
   }
-
   updateFormSignUpPassword(e) {
     this.setState({
       signup: {
@@ -164,7 +172,6 @@ export default class App extends Component {
       },
     });
   }
-
   updateFormLogInUsername(e) {
     this.setState({
       login: {
@@ -173,7 +180,6 @@ export default class App extends Component {
       },
     });
   }
-
   updateFormLogInPassword(e) {
     this.setState({
       login: {
@@ -182,7 +188,6 @@ export default class App extends Component {
       },
     });
   }
-
   handleSignUp() {
     let username = this.state.signup.username;
     let password = this.state.signup.password;
@@ -200,7 +205,21 @@ export default class App extends Component {
     }))
     .catch(err => console.log(err));
   }
-
+  logout() {
+    this.setState({
+      login: {
+        loggedIn: false,
+      },
+      hideComponent: true,
+      showComponent: false,
+      displayLogin: false,
+      hideLogin: true,
+      displaySignup: false,
+      hideSignup: true,
+      displaylogout: false,
+      clear: true,
+    });
+  }
   handleLogIn() {
     let username = this.state.login.username;
     let password = this.state.login.password;
@@ -218,10 +237,6 @@ export default class App extends Component {
         } else {
           console.log('logged in');
           this.setState({
-            login: {
-              username: '',
-              password: '',
-            },
             showComponent: true,
             hideComponent: false,
             notification: '',
@@ -229,13 +244,13 @@ export default class App extends Component {
             hideLogin: true,
             displaySignup: false,
             hideSignup: true,
+            displaylogout: true,
           });
           this.handleAjaxGetAll();
         }
       })
       .catch(err => console.log(err));
   }
-
   handleAjaxGetAll() {
     AjaxFunctions.getDrawings()
       .then(drawings => {
@@ -245,11 +260,9 @@ export default class App extends Component {
       })
       .catch(err => console.log(err));
   }
-
   loginDisplay() {
     this.setState({ displayLogin: true, hideLogin: false, displaySignup: false, hideSignup: true });
   }
-
   SignupDisplay() {
     this.setState({ displaySignup: true, hideSignup: false, displayLogin: false, hideLogin: true });
   }
@@ -259,8 +272,8 @@ export default class App extends Component {
 // Banana is attributed to trevor!!!!! the "this" in this.state.url was not recognized in background
     const overlap = {
       position: 'absolute',
-      left: '10px',
-      top: '100px',
+      left: this.state.imgCoords.offsetLeft,
+      top: this.state.imgCoords.offsetTop,
     };
     const noteColor = {
       color: 'red',
@@ -292,62 +305,70 @@ export default class App extends Component {
               loginDisplay={this.loginDisplay.bind(this)}
             />
           </div> : null}
+          <div className="userLogin">
+            <Logout
+              displaylogout={this.state.displaylogout}
+              logout={this.logout.bind(this)}
+            />
+          </div>
         </header>
         <h1 className="notify" style={noteColor}>{this.state.notification}</h1>
         <main>
-        <div className="picture">
-        <Form
-          updateUrl={(e) => this.updateUrl(e)}
-          searchUrl={this.searchUrl.bind(this)}
-          holderUrl={this.state.holderUrl}
-        />
-        <DrawCanvas
-          brushColor={this.state.color}
-          lineWidth={this.state.line}
-          canvasStyle={{
-            background: 'url(' + banana + ')',
-            cursor: 'pointer',
-          }}
-          clear={this.state.clear}
-          unclear={this.unClear.bind(this)}
-          updateCanvasIDs={(imgData) => this.updateCanvasIDs(imgData)}
-        />
-        <img style={overlap} src={this.state.editImg} />
-        <div className="stylings">
-        <input className="rangeThick" type="range" min="2" max="15" step=".5" onChange={this.lineChange.bind(this)} />
-        <button onClick={() => this.clickClear()}>clear</button>
-        <Color
-          handleClick={this.handleClick.bind(this)}
-          displayColorPicker={this.state.displayColorPicker}
-          handleClose={this.handleClose.bind(this)}
-          color={this.state.color}
-          handleChangeComplete={this.handleChangeComplete.bind(this)}
-        />
-        </div>
-        {this.state.showComponent ? <div className="dontHitBottom">
-          <Publish
-            title={this.state.title}
-            description={this.state.description}
-            handleTitleChange={(e) => this.handleTitleChange(e)}
-            handleDescriptionChange={(e) => this.handleDescriptionChange(e)}
-            publishDrawing={this.publishDrawing.bind(this)}
-          />
-          </div>: null}
-        </div>
-        <div className="gal">
-        {this.state.showComponent ? <div>
-          <Gallery
-            drawings={this.state.drawings}
-            editCanvas={(id) => this.editCanvas(id)}
-            deleteCanvas={(id) => this.deleteCanvas(id)}
-          />
-        </div>: null}
-      </div>
+          <div className="picture">
+            <Form
+              updateUrl={(e) => this.updateUrl(e)}
+              searchUrl={this.searchUrl.bind(this)}
+              holderUrl={this.state.holderUrl}
+            />
+            <DrawCanvas
+              brushColor={this.state.color}
+              lineWidth={this.state.line}
+              canvasStyle={{
+                background: 'url(' + banana + ')',
+                cursor: 'pointer',
+              }}
+              clear={this.state.clear}
+              unclear={this.unClear.bind(this)}
+              updateCanvasIDs={(imgData) => this.updateCanvasIDs(imgData)}
+            />
+            <img style={overlap} src={this.state.editImg} />
+            <div className="stylings">
+              <input className="rangeThick" type="range" min="2" max="15" step=".5" onChange={this.lineChange.bind(this)} />
+              <button onClick={() => this.clickClear()}>clear</button>
+              <Color
+                handleClick={this.handleClick.bind(this)}
+                displayColorPicker={this.state.displayColorPicker}
+                handleClose={this.handleClose.bind(this)}
+                color={this.state.color}
+                handleChangeComplete={this.handleChangeComplete.bind(this)}
+              />
+            </div>
+            {this.state.showComponent ? <div>
+              <Publish
+                title={this.state.title}
+                description={this.state.description}
+                handleTitleChange={(e) => this.handleTitleChange(e)}
+                handleDescriptionChange={(e) => this.handleDescriptionChange(e)}
+                publishDrawing={this.publishDrawing.bind(this)}
+              />
+            </div>: null}
+            <div className="dontHitBottom"></div>
+          </div>
+          <div className="gal">
+            {this.state.showComponent ? <div>
+              <Gallery
+                drawings={this.state.drawings}
+                editCanvas={(id) => this.editCanvas(id)}
+                deleteCanvas={(id) => this.deleteCanvas(id)}
+              />
+            </div>: null}
+          </div>
         </main>
         <footer className="footer">
         </footer>
 
       </div>
+
     );
   }
 }

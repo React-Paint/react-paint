@@ -7,10 +7,11 @@
   height: 400px;
 }
 header {
-  background-color: orange;
   position: fixed;
   top: 0;
   width: 100vw;
+  background: linear-gradient(to bottom, #464242 , #212121  );
+
 }
 .userLogin {
   position: fixed;
@@ -22,15 +23,15 @@ header {
   justify-content: center;
 }
 .rangeThick {
-  margin-top: 25px;
+  margin-top: 50px;
   margin-right: 10px;
 }
 main {
-/*  margin-top: 50px;*/
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: center;
+   background: #ECECEC
 }
 .gal {
   overflow-y: auto;
@@ -59,5 +60,5 @@ footer {
   bottom: 0;
   width: 100vw;
   height: 40px;
-  background: linear-gradient(to bottom right, white, blue);
+  background: linear-gradient(to bottom, #464242 , #212121  );
 }

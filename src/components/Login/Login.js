@@ -14,13 +14,13 @@ class Login extends Component {
           <button onClick={this.props.handleFormSubmit}>
             Log In!
           </button>
-          <input
+          <input className="reSize"
             type="text"
             placeholder="username"
             value={this.props.logInUsername}
             onChange={this.props.updateFormUsername}
           />
-          <input
+          <input className="reSize"
             type="password"
             placeholder="password"
             value={this.props.logInPassword}

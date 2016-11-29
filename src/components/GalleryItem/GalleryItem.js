@@ -16,6 +16,7 @@ export default class GalleryItem extends Component {
         <p>
           {this.props.desc}
         </p>
+        <h6>Created by: {this.props.username}</h6>
         <div style={style}>
           <img className="renderz" src={this.props.canvas} alt={this.props.title} id={this.props.id} />
         </div>
