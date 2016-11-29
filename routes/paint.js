@@ -8,13 +8,11 @@ paint.route('/:id')
   .get(db.getDrawing, sendJSONResp)
   .delete(db.deletePainting, sendStatus);
 
+// /:id targets a particular pantings ID so that they can either delete one painting or edit it
 paint.route('/')
   .get(db.getDrawings, sendJSONResp)
   .post(db.addDrawing, sendJSONResp);
 
-//
-// paint.route('/:ID/edit')
-//   .get(getPainting , sendJSONresp);
-//   .post(updatePainting , sendJSONresp);
+// routes that point to the paint model and allow deleting get and post with the following routes
 
 module.exports = paint;

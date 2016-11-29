@@ -1,3 +1,4 @@
+// web pack that draws on a canvas, which we later save to our galery
 'use strict';
 const React = require('react');
 const ReactDOM = require('react-dom');

@@ -1,3 +1,4 @@
+// web pack that draws out website title on page
 'use strict';
 const React = require('react');
 const ReactDOM = require('react-dom');

@@ -15,6 +15,10 @@ export default class Color extends Component {
       bottom: '0px',
       left: '0px',
     };
+
+// use inline styling by creating const and using them in return
+// have turrinary to make color wheel appear and hide
+// props passed from parent and are used here
     return (
       <div>
           <button onClick={this.props.handleClick}>Pick Color</button>
