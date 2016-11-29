@@ -1,0 +1,16 @@
+.reSize {
+     width: 300px;
+    height: 38px;
+
+
+}
+
+.reSized {
+  position: relative;
+     width: 300px;
+    height: 38px;
+     padding: 1px;
+      top: 17px;
+
+}
+

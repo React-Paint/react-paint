@@ -343,7 +343,7 @@ export default class App extends Component {
                 handleChangeComplete={this.handleChangeComplete.bind(this)}
               />
             </div>
-            {this.state.showComponent ? <div className="dontHitBottom">
+            {this.state.showComponent ? <div>
               <Publish
                 title={this.state.title}
                 description={this.state.description}
@@ -352,6 +352,7 @@ export default class App extends Component {
                 publishDrawing={this.publishDrawing.bind(this)}
               />
             </div>: null}
+            <div className="dontHitBottom"></div>
           </div>
           <div className="gal">
             {this.state.showComponent ? <div>
@@ -367,6 +368,7 @@ export default class App extends Component {
         </footer>
 
       </div>
+
     );
   }
 }

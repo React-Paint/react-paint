@@ -19,8 +19,8 @@ export default class Gallery extends Component {
         />
     ));
     return (
-      <div className="gallery-div">
-        <h1>Gallery</h1>
+      <div>
+        <h1 className="gallery-div">Gallery</h1>
         {drawing}
       </div>
     );

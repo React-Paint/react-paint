@@ -1,7 +1,6 @@
 const { sqlDB } = require('./dbConnect');
 
 module.exports = {
-
   getDrawings(req, res, next) {
     sqlDB.any(`
       SELECT * FROM canvas;
