@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './GalleryItem.css';
 
+//The rendered canvas image and other information for each drawing object
 export default class GalleryItem extends Component {
 
   render() {
