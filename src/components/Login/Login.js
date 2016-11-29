@@ -4,24 +4,29 @@ import style from './Login.css';
 // create a React Component called _App_
 class Login extends Component {
 
-  render(){
+  render() {
     return (
-      <div id={style['form-container']}>
-        <input
-          type="text"
-          placeholder="email"
-          value={this.props.logInUsername}
-          onChange={this.props.updateFormUsername}
-        />
-        <input
-          type="password"
-          placeholder="password"
-          value={this.props.logInPassword}
-          onChange={this.props.updateFormPassword}
-        />
-        <button onClick={this.props.handleFormSubmit}>
-          Log In!
-        </button>
+      <div>
+        { this.props.hideLogin ? <div>
+          <button onClick={this.props.loginDisplay}>Login!</button>
+        </div> : null }
+        { this.props.displayLogin ? <div>
+          <button onClick={this.props.handleFormSubmit}>
+            Log In!
+          </button>
+          <input className="reSize"
+            type="text"
+            placeholder="username"
+            value={this.props.logInUsername}
+            onChange={this.props.updateFormUsername}
+          />
+          <input className="reSize"
+            type="password"
+            placeholder="password"
+            value={this.props.logInPassword}
+            onChange={this.props.updateFormPassword}
+          />
+        </div> : null }
       </div>
     );
   }

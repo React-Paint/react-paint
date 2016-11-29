@@ -20,7 +20,9 @@ input[type='text'] {
   height: 20px;
   padding: 10px 10px 10px 10px;
   font-size: 12px;
-
 }
-
+.formzz {
+  margin-left: 70px;
+  margin-bottom: 10px;
+}
 

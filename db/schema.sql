@@ -1,5 +1,8 @@
 BEGIN;
 
+-- deploying schema to heroku
+-- `heroku pg:psql --app react-paint < db/schema.sql`
+
 DROP TABLE IF EXISTS canvas;
 DROP TABLE IF EXISTS users;
 
@@ -8,7 +11,8 @@ CREATE TABLE canvas (
   title         VARCHAR NOT NULL,
   description   TEXT,
   drawing       TEXT,
-  url           TEXT
+  url           TEXT,
+  username      VARCHAR
 );
 
 CREATE TABLE users (

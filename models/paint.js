@@ -16,9 +16,9 @@ module.exports = {
   addDrawing(req,res,next) {
     sqlDB.one(`
       INSERT INTO
-        canvas(title,description,drawing,url)
+        canvas(title,description,drawing,url, username)
       VALUES
-        ($/title/, $/description/, $/drawing/, $/url/)
+        ($/title/, $/description/, $/drawing/, $/url/, $/username/)
       RETURNING *;
     `, req.body)
     .then((canvas) => {
@@ -49,4 +49,3 @@ module.exports = {
   },
 
 };
-

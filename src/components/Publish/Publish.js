@@ -5,8 +5,8 @@ export default class Publish extends Component {
   render() {
     return (
       <div className="publish-div">
-        <input type="text" value={this.props.title} onChange={this.props.handleTitleChange}/>
-        <textarea value={this.props.description} onChange={this.props.handleDescriptionChange}>
+        <input type="text" className="reSize" placeholder="Picture Title" value={this.props.title} onChange={this.props.handleTitleChange}/>
+        <textarea className="reSized" placeholder="Picture Description" value={this.props.description} onChange={this.props.handleDescriptionChange}>
           Enter a description
         </textarea>
         <button onClick={() => this.props.publishDrawing()}>Publish</button>
