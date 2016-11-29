@@ -293,7 +293,7 @@ export default class App extends Component {
             />
           </div> : null}
         </header>
-        <h1 style={noteColor}>{this.state.notification}</h1>
+        <h1 className="notify" style={noteColor}>{this.state.notification}</h1>
         <main>
         <div className="picture">
         <Form
@@ -324,7 +324,7 @@ export default class App extends Component {
           handleChangeComplete={this.handleChangeComplete.bind(this)}
         />
         </div>
-        {this.state.showComponent ? <div>
+        {this.state.showComponent ? <div className="dontHitBottom">
           <Publish
             title={this.state.title}
             description={this.state.description}
