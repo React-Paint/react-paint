@@ -37,8 +37,8 @@ Once the user is signed in to their account, the user can select a background. T
 
 ## Wireframe
 
-![](/wireframe.png)
-
+<!-- ![](/wireframe.png) -->
+ADY WE NEED YOUR PICTURES FOR HERE
 
 ## Technologies Used
 
@@ -50,6 +50,14 @@ Once the user is signed in to their account, the user can select a background. T
 - Canvas
 
 ## Interesting Code
+
+![](./images/ex1.png)
+
+In this code we use a terrinary opperation where onclick of the button, a div either appears or disappears depending on the itial state. Inline style is also applied here where we import the style from a const popover created on the page. Props are used to call states from a parent element.
+
+![](./images/ex2.png)
+
+The logout function uses the true and falses shown to opperate the many turrinaries (descriped in previous code) to allow div's to appear and disappear based on their state. In handleLogin a if else statement is used to only allow users to login if thier information has previously been stored in SQl through the sign up function. If the login is not valid, a notification shows up alerting user to sign up or try typing password again.
 
 ## Installation
 
