@@ -13,6 +13,7 @@ export default class GalleryItem extends Component {
     return (
       <div className="drawing-card">
         <h4>{this.props.title}</h4>
+        <h6>{this.props.username}</h6>
         <p>
           {this.props.desc}
         </p>

@@ -1,0 +1,19 @@
+extends: airbnb
+installedESLint: true
+plugins:
+  - react
+  - jsx-a11y
+  - import
+rules:
+  strict: 0
+  global-require: 0
+  key-spacing:
+    - error
+    - align:
+        value
+  no-multi-spaces:
+    - error
+    - exceptions:
+        VariableDeclarator: true
+        ImportDeclaration: true
+  import/no-extraneous-dependencies: 0

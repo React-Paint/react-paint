@@ -1,17 +1,16 @@
 {
-  "name": "bobby-king-react-template",
+  "name": "react-paint",
   "version": "1.0.0",
   "description": "React application template using webpack",
   "engines": {
-  "node": "6.6.0"
+    "node": "7.1.0"
   },
   "main": "server.js",
   "private": true,
   "scripts": {
     "clean": "rm -rf dist && rm -rf node_modules",
-    "heroku-prebuild": "scripts/deployment_react.sh",
-    "heroku-postbuild": "scripts/deployment_cleanup.sh",
-    "start": "node server.js",
+    "heroku-prebuild": "bash ./scripts/deployment_react.sh",
+    "heroku-postbuild": "bash ./scripts/deployment_cleanup.sh",
     "rebuild": "webpack -d --progress --colors",
     "watch": "webpack -d --progress --watch"
   },
@@ -19,24 +18,18 @@
     "type": "",
     "url": ""
   },
-  "author": "Bobby King",
-  "license": "SEE LICENSE IN LICENSE",
+  "author": "Phil Winchester",
+  "license": "Help Yourself",
   "bugs": {
     "url": "https://github.com/gittheking/react_template/issues"
   },
   "homepage": "https://github.com/gittheking/react_template#readme",
   "dependencies": {
     "body-parser": "^1.15.2",
-    "dotenv": "^2.0.0",
     "express": "^4.14.0",
-    "jsonwebtoken": "^7.1.9",
     "morgan": "^1.7.0",
-    "passport": "^0.3.2",
-    "passport-jwt": "^2.2.1",
-    "passport-local": "^1.0.0",
     "path": "^0.12.7",
-    "pg-promise": "^5.2.7",
-    "react-color": "^2.8.0"
+    "pg-promise": "^5.2.7"
   },
   "devDependencies": {
     "babel": "^6.5.2",
@@ -62,6 +55,7 @@
     "react-dom": "^15.3.0",
     "style-loader": "^0.13.1",
     "url-loader": "^0.5.7",
-    "webpack": "^1.13.1"
+    "webpack": "^1.13.1",
+    "react-color": "^2.8.0"
   }
 }
