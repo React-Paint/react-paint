@@ -6,6 +6,8 @@ BEGIN;
 DROP TABLE IF EXISTS canvas;
 DROP TABLE IF EXISTS users;
 
+-- dropping tables if they exist so if we have to reinstall schema theres only one table each
+
 CREATE TABLE canvas (
   id            SERIAL PRIMARY KEY,
   title         VARCHAR NOT NULL,
@@ -15,12 +17,16 @@ CREATE TABLE canvas (
   username      VARCHAR
 );
 
+-- creating columns for canvas, not null means a value needs to be imported
+
 CREATE TABLE users (
   id SERIAL PRIMARY KEY,
   username VARCHAR NOT NULL UNIQUE,
   password VARCHAR NOT NULL,
   created_at TIMESTAMP DEFAULT current_timestamp
 );
+
+-- creating users table. each username needs to be unique
 
 INSERT INTO
   canvas(title,description,drawing,url)
@@ -31,5 +37,7 @@ INSERT INTO
   users(username,password)
 VALUES
   ('Jason', 'Seminara');
+
+-- seeding the tables so when opened there's some data in them
 
 COMMIT;

@@ -5,6 +5,8 @@ import style from './Login.css';
 class Login extends Component {
 
   render() {
+
+// attributed to rafa
     return (
       <div>
         { this.props.hideLogin ? <div>

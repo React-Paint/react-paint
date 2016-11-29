@@ -11,6 +11,8 @@ const config = process.env.DATABASE_URL || {
   password:   process.env.DB_PASS,
 };
 
+// information to be used in .env file to create DB to be used with SQL
+
 const sqlDB = pgp(config);
 
 module.exports = {

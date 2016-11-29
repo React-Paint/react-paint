@@ -12,6 +12,7 @@ module.exports = {
       .catch((err) => next(err));
   },
 
+// when a user signsup, a user is created and added to the user table. all users have pass with them and usernames must be unique
   findByUsername(req,res,next) {
     sqlDB.one(`
       SELECT * FROM
@@ -24,6 +25,8 @@ module.exports = {
         res.user = user;
         next();
       })
-      .catch(() => next({password:false}))
-  }
+      .catch(() => next({ password: false }));
+  },
+
+// function that is able to login users matching username and password in users table
 };

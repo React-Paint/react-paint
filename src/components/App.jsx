@@ -49,11 +49,14 @@ export default class App extends Component {
     };
   }
 
+// everthing in state is inital set values that appon doing something on the page may change their values
   handleChangeComplete(draw) {
     this.setState({
       color: `rgba(${draw.rgb.r}, ${draw.rgb.g}, ${draw.rgb.b}, ${draw.rgb.a})`,
     });
   }
+
+  // uses the color wheel to grab rgb values and set the new color pen
   clickClear() {
     this.setState({
       clear: true,
@@ -61,27 +64,36 @@ export default class App extends Component {
       notification: "",
     });
   }
+
+  // clears canvas
   unClear() {
     this.setState({
       clear: false,
     });
   }
+
+  // unclears canvas
   updateUrl(e) {
     this.setState({
       holderUrl: e.target.value,
     });
   }
+
+  // grabs the e.target value of url background image and sets holderurl to that
   lineChange(e) {
     this.setState({
       line: e.target.value,
     });
   }
+
+// set the thickness on the pen line
   searchUrl() {
     this.setState({
       url: this.state.holderUrl,
     });
   }
 
+//on click sets the url equal to holder url
   publishDrawing() {
     console.log(this.state.login.username);
     const canvasData = {
@@ -90,7 +102,6 @@ export default class App extends Component {
       drawing: this.state.imgData.canvas.toDataURL('png'),
       url: this.state.url,
       username: this.state.login.username
-
     };
       AjaxFunctions.addDrawing(canvasData)
       .then(drawing => {
@@ -105,11 +116,10 @@ export default class App extends Component {
       .catch(err => console.log(err));
   }
 
+// when the publish button is clicked, the drawing is saved as an image and title/ descripton/background are saved into sqla and put into gallery
   editCanvas(id) {
     const imgSrc = AjaxFunctions.getImage(id);
-
     let canvCoords = CanvasHelper.getCoords();
-
     AjaxFunctions.getDrawing(id)
       .then((canv) => {
         this.setState({
@@ -124,6 +134,7 @@ export default class App extends Component {
       .catch(err => console.log(err));
   }
 
+// on click of edit, brings image from gallery back into edit location to that further changes can be made to the image
   deleteCanvas(id) {
     AjaxFunctions.deleteDrawing(id)
      .then(() => {
@@ -134,28 +145,38 @@ export default class App extends Component {
     this.handleAjaxGetAll();
   }
 
+// uses image ID and deletes it from the gallery
   updateCanvasIDs(canvas) {
     this.setState({
       imgData: canvas,
     });
   }
+
+  //opens color picker and allows user to select color
   handleClick() {
     this.setState({ displayColorPicker: !this.state.displayColorPicker });
   }
+
+  //closes color wheel
   handleClose() {
     this.setState({ displayColorPicker: false });
   }
 
+  //updates title state from the title box
   handleTitleChange(e) {
     this.setState({
       title: e.target.value,
     });
   }
+
+  //same as title but for description box
   handleDescriptionChange(e) {
     this.setState({
       description: e.target.value,
     });
   }
+
+  //these handle their respective boxes in the signup form
   updateFormSignUpUsername(e) {
     this.setState({
       signup: {
@@ -188,6 +209,7 @@ export default class App extends Component {
       },
     });
   }
+//signs up a new user by adding them to the database
   handleSignUp() {
     let username = this.state.signup.username;
     let password = this.state.signup.password;
@@ -205,6 +227,7 @@ export default class App extends Component {
     }))
     .catch(err => console.log(err));
   }
+//empties the state after user login
   logout() {
     this.setState({
       login: {
@@ -220,6 +243,7 @@ export default class App extends Component {
       clear: true,
     });
   }
+//logs out user with fetch to database with their username
   handleLogIn() {
     let username = this.state.login.username;
     let password = this.state.login.password;
@@ -251,6 +275,7 @@ export default class App extends Component {
       })
       .catch(err => console.log(err));
   }
+//logs in user with fetch to database with their username
   handleAjaxGetAll() {
     AjaxFunctions.getDrawings()
       .then(drawings => {
@@ -260,13 +285,15 @@ export default class App extends Component {
       })
       .catch(err => console.log(err));
   }
+//get all drawungs and sets all the drawings to the array
   loginDisplay() {
     this.setState({ displayLogin: true, hideLogin: false, displaySignup: false, hideSignup: true });
   }
+//onclick the login button, inputs appear by using boolean values
   SignupDisplay() {
     this.setState({ displaySignup: true, hideSignup: false, displayLogin: false, hideLogin: true });
   }
-
+//onclick the login button, inputs appear by using boolean values
   render() {
     const banana = this.state.url;
 // Banana is attributed to trevor!!!!! the "this" in this.state.url was not recognized in background
@@ -278,6 +305,7 @@ export default class App extends Component {
     const noteColor = {
       color: 'red',
     };
+// style made using const and inline in render
     return (
       <div>
         <header>
