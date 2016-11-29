@@ -17,7 +17,7 @@ As a Guest
 As a User
 
 - Get access to all the functionality included as a guest
-- Sign Up or Login to your profile. 
+- Sign Up or Login to your profile.
 - Save your favorite images to your library.
 - Retrieve, redraw and remove images from your library.
 
@@ -37,8 +37,11 @@ Once the user is signed in to their account, the user can select a background. T
 
 ## Wireframe
 
-<!-- ![](/wireframe.png) -->
-ADY WE NEED YOUR PICTURES FOR HERE
+![](./images/userpage.png)
+
+## User Authentication
+
+The user authentication is simple plaintext verification. While using this site on Heroku or locally, please use a dumb password.
 
 ## Technologies Used
 
@@ -67,15 +70,23 @@ If you are forking it from github, in your terminal window do the command "npm i
 
 ## Sources
 
-- Jason for help with Heroku
+- Jason's, Matt's, Bobby's for help with Heroku
+- React Drawable Canvas is the npm package we used as the base of our canvas. We altered their code to allow us to get the canvas context so we can put it into our db.
+  - https://www.npmjs.com/package/react-drawable-canvas
+- React Color is the npm package we used to alter the color of the line while drawing. Didn't alter this, just imported and used.
+  - https://www.npmjs.com/package/react-color
+- Bobby's webpack.config for our webpack.
+- Canvas Drawing Animation used for the welcome logo on our site. Adapted it to React and altered printing width.
+  - http://stackoverflow.com/questions/29911143/how-can-i-animate-the-drawing-of-text-on-a-web-page
 
 ## Hurdles
 
 - Deploying on Heroku
 - Downloading images from Canvas
+- Figuring out how to store canvas data in db
 - UserAuth
 - Working as a team remotely on Github
 
 ## To View
 
-HEROKU LINK HERE
+https://react-paint.herokuapp.com/
