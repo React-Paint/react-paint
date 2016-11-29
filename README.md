@@ -17,7 +17,7 @@ As a Guest
 As a User
 
 - Get access to all the functionality included as a guest
-- Sign Up or Login to your profile. 
+- Sign Up or Login to your profile.
 - Save your favorite images to your library.
 - Retrieve, redraw and remove images from your library.
 
@@ -39,6 +39,8 @@ Once the user is signed in to their account, the user can select a background. T
 
 <!-- ![](/wireframe.png) -->
 ADY WE NEED YOUR PICTURES FOR HERE
+
+
 
 ## Technologies Used
 
