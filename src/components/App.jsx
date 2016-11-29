@@ -5,6 +5,7 @@ import Form from './Form/Form.jsx';
 import Gallery from './Gallery/Gallery';
 import Color from './Color/Color';
 import Publish from './Publish/Publish';
+import Logout from './Logout/Logout';
 import DrawCanvas from './DrawCanvas/DrawCanvas';
 import AjaxFunctions from '../helpers/AjaxFunctions';
 import CanvasHelper from '../helpers/CanvasHelper';
@@ -30,6 +31,7 @@ export default class App extends Component {
       displaySignup: false,
       hideLogin: true,
       hideSignup: true,
+      displaylogout: false,
       drawings: [],
       editImg: "",
       notification:"",
@@ -203,6 +205,21 @@ export default class App extends Component {
     }))
     .catch(err => console.log(err));
   }
+  logout() {
+    this.setState({
+      login: {
+        loggedIn: false,
+      },
+      hideComponent: true,
+      showComponent: false,
+      displayLogin: false,
+      hideLogin: true,
+      displaySignup: false,
+      hideSignup: true,
+      displaylogout: false,
+      clear: true,
+    });
+  }
   handleLogIn() {
     let username = this.state.login.username;
     let password = this.state.login.password;
@@ -227,6 +244,7 @@ export default class App extends Component {
             hideLogin: true,
             displaySignup: false,
             hideSignup: true,
+            displaylogout: true,
           });
           this.handleAjaxGetAll();
         }
@@ -287,6 +305,12 @@ export default class App extends Component {
               loginDisplay={this.loginDisplay.bind(this)}
             />
           </div> : null}
+          <div className="userLogin">
+            <Logout
+              displaylogout={this.state.displaylogout}
+              logout={this.logout.bind(this)}
+            />
+          </div>
         </header>
         <h1 className="notify" style={noteColor}>{this.state.notification}</h1>
         <main>

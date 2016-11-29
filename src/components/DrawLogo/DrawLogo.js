@@ -3,7 +3,6 @@ const React = require('react');
 const ReactDOM = require('react-dom');
 const PropTypes = React.PropTypes;
 import './DrawLogo.css';
-// import './App.css';
 
 const DrawLogo = React.createClass({
 
@@ -17,20 +16,19 @@ const DrawLogo = React.createClass({
   componentDidMount() {
     let canvas = ReactDOM.findDOMNode(this);
     canvas.width =1200;
-// width="200" height="200"
     let ctx = canvas.getContext('2d');
 
     ctx.font = "50px Comic Sans MS, cursive, TSCu_Comic, sans-serif";
     ctx.lineWidth = 5;
     ctx.lineJoin = "round";
     ctx.globalAlpha = 2/3;
-    ctx.strokeStyle = ctx.fillStyle = "#1f2f90";
+    ctx.strokeStyle = ctx.fillStyle = "#ECECEC";
     //
     // "#F5F5F5";
 
     let dashLen = 220;
     let dashOffset = dashLen;
-    let speed = 5;
+    let speed = 12;
     let txt = "Welcome to REACT PAINT";
     let x = 30;
     let i = 0;
