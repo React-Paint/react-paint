@@ -20,6 +20,7 @@ app.use('/auth', require('./routes/auth'))
 
 app.listen(PORT, () => console.log('server here! listening on', PORT));
 
+//user login is sent as an error to server and this catches it and push out an error message on incorrect password
 app.use((err, req, res, next) => {
   console.error(err, next);
   if (err.password === false) {

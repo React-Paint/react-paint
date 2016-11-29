@@ -4,6 +4,8 @@ import './Gallery.css';
 
 export default class Gallery extends Component {
   render() {
+    //Takes in the object from state and loops over it as an array.
+    // creates a GalleryItem component for each entry.
     const drawing = Object.keys(this.props.drawings)
       .map((canvID, ind) => (
         <GalleryItem
